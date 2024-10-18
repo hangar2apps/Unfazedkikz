@@ -165,6 +165,11 @@ footer {
     color: var(--background-color);
 }
 
+.poweredByText {
+    color: var(--text-color);
+    text-emphasis: none;
+}
+
 @media (max-width: 768px) {
     .coming-soon {
         font-size: 2rem;
