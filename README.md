@@ -1,6 +1,7 @@
 # Unfazedkikz
 Tina Jackson shoe site
 
+motto - 'We don't do release dates'
 
 https://sneakercycle.com/?srsltid=AfmBOooD5eLoAqVEz7IXcpHCPQeBE1SS575yownd5NR9ds-ar0lw76wf
 
@@ -22,4 +23,7 @@ A little elegant
 We would like it simple to reach us for inquiry’s
 We would like the shoes to be easy to search for ie: pink Jordan one…an all pink Jordan ones come up like on GOAT OR STOCK X
 
-We are ready when you are and just need to know what you need from us. I’m super excited and you don’t know how much we appreciate you!!
+
+shoe of the week
+need business facebook account
+purchasing through email
