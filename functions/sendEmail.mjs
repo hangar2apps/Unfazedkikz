@@ -49,7 +49,7 @@ export default async (req, context) => {
 
     await transporter.sendMail({
       from: `<${email}>`,
-      to: "hangar2apps@gmail.com", // Replace with your email
+      to: "unfazedkikz@gmail.com", // Replace with your email
       subject: "New message from Unfazed-kikz.com",
       text: message,
       html: `
