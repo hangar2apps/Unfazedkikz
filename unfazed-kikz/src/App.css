@@ -1,0 +1,39 @@
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+.navbar {
+  border-bottom: 1px solid #6b46c1;
+}
+
+.hero {
+  background: linear-gradient(to bottom, #6b46c1, #000);
+}
+
+.card {
+  background-color: #1a202c;
+  border: none;
+}
+
+.card:hover {
+  background-color: #2d3748;
+}
+
+.btn-primary {
+  background-color: #6b46c1;
+  border-color: #6b46c1;
+}
+
+.btn-primary:hover {
+  background-color: #553c9a;
+  border-color: #553c9a;
+}
+
+.shoe-of-week {
+  background-color: #6b46c1;
+}
+
+.footer {
+  background-color: #1a202c;
+}

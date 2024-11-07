@@ -12,6 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "@netlify/blobs": "^8.1.0",
+        "@netlify/functions": "^2.8.2",
         "dotenv": "^16.4.5",
         "mysql2": "^3.10.3",
         "nodemailer": "^6.9.15",
