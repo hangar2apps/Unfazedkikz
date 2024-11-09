@@ -1,6 +1,3 @@
-[functions."scheduledEmailCheck"]
-    schedule = "@hourly"
-
 [build]
     publish = "public"
     functions = "functions"

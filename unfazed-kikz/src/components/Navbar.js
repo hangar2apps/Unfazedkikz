@@ -6,7 +6,7 @@ function Navbar() {
       <div className="container">
         <a className="navbar-brand d-flex align-items-center" href="#">
           <img
-            src="https://cdn.jsdelivr.net/gh/hangar2apps/unfazedkikz_images@main/unfazed-kikz-logo.png?raw=true"
+            src="https://github.com/hangar2apps/unfazedkikz_images/blob/main/unfazed-kikz-logo.png?raw=true"
             alt="Unfazed Kikz Logo"
             width="50"
             height="50"
