@@ -1,13 +1,15 @@
-[build]
-    publish = "public"
-    functions = "functions"
-
 [dev]
-  framework = "#static"
-  publish = "public"
+  framework = "create-react-app"
+  targetPort = 3000
+  publish = "build"
   functions = "functions"
 
+[build]
+  command = "npm run build"
+  publish = "build"
+  functions = "functions"
+  
 [[redirects]]
-    from = "/api/*"
-    to = "/.netlify/functions/:splat"
-    status = 200
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
