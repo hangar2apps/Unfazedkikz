@@ -36,7 +36,7 @@ function App() {
     <Router>
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home shoes={shoes} />} />
+        <Route path="/" element={<Home shoeBrands={shoeBrands} shoes={shoes} />} />
         <Route path="/upload" element={<Upload shoeBrands={shoeBrands} />} />
       </Routes>
     </div>
