@@ -21,16 +21,8 @@ export default async (req, context) => {
         )
       }
 
-    //   const asicsStore = getStore({ name: 'Asics', siteID: siteID, token: token });
-    //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_Red');
-    //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
-    //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
-
-    //   const newBalanceStore = getStore({ name: 'New Balance', siteID: siteID, token: token });
-    //   await newBalanceStore.delete('9060-Artic_Grey');
-
-      const newBalanceStore = getStore({ name: 'shoes', siteID: siteID, token: token });
-      await newBalanceStore.delete('Nike/Test/Test.json');
+      const shoesStore = getStore({ name: 'shoes', siteID: siteID, token: token });
+      await shoesStore.delete('Nike/Test/Test.json');
 
 
       

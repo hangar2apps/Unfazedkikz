@@ -26,7 +26,19 @@ export default async (req, context) => {
     });
     console.log('stores', stores);
 
+    if(stores.length === 0) {
+      return new Response(JSON.stringify({
+        stores: [],
+        shoes: ''
+      }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
     
+
+
 
     return new Response(JSON.stringify({
       stores: stores.filter(store => store !== 'Test' && store !== 'contactInfo'),
