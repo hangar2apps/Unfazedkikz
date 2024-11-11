@@ -58,7 +58,7 @@ export default async (req, context) => {
       
     });
 
-
+    console.log('shoeBrands', shoeBrands);
     console.log('shoesArray', shoesArray);
 
     return new Response(JSON.stringify({
