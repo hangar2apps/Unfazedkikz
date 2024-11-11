@@ -44,6 +44,7 @@ export default async (req, context) => {
       if(!shoeBrands.includes(shoeBrand)) {
         shoeBrands.push(shoeBrand);
       }
+      console.log('getting past if');
       const shoeObj = await shoes.get(blob.key);
       console.log('shoeObj', shoeObj);
 
