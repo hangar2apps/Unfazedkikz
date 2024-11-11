@@ -21,12 +21,12 @@ export default async (req, context) => {
     }
 
     const shoes = getStore({ name: 'shoes', siteID: siteID, token: token });
-    const { blobObjects } = await shoes.list();
-    console.log('blobObjects', blobObjects);
+    const { blobs } = await shoes.list();
+    console.log('blobs', blobs);
 
-    if(blobObjects.length === 0) {
+    if(blobs.length === 0) {
       return new Response(JSON.stringify({
-        blobObjects: [],
+        blobs: [],
         shoes: ''
       }), {
         status: 200,
@@ -34,21 +34,21 @@ export default async (req, context) => {
       });
     }
 
-    //process blobObjects
+    //process blobs
     let shoeBrands = [];
     let shoesArray = [];
-    blobObjects.forEach(async blobObj => {
-      const shoeBrand = blobObj.key.split('/')[0];
-      const shoeLine = blobObj.key.split('/')[1];
-      const shoeModel = blobObj.key.split('/')[2];
+    blobs.forEach(async blob => {
+      const shoeBrand = blob.key.split('/')[0];
+      const shoeLine = blob.key.split('/')[1];
+      const shoeModel = blob.key.split('/')[2];
       if(!shoeBrands.includes(shoeBrand)) {
         shoeBrands.push(shoeBrand);
       }
 
-      const blob = await shoes.get(blobObj.key);
-      console.log('blob', blob);
+      const shoeObj = await shoes.get(blob.key);
+      console.log('shoeObj', shoeObj);
 
-      // shoesArray.push({
+      // shoesArray.push()
 
       
     });
