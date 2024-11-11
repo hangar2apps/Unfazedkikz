@@ -18,7 +18,7 @@ function App() {
         console.log("response", response);
         const data = await response.json();
         console.log("data", data);
-        setStores(data.stores);
+        setStores(data);
       } catch (error) {
         console.error("Error fetching shoes:", error);
       }
