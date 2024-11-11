@@ -31,7 +31,7 @@ export default async (req, context) => {
     // GitHub repository details
     const owner = process.env.GITHUB_OWNER;
     const repo = process.env.GITHUB_REPO;
-    const path = `${shoeBrand}/${shoeLine}/${shoeModel}.jpg`;
+    const path = `shoes/${shoeBrand}/${shoeLine}/${shoeModel}.jpg`;
     const targetBranch = 'v1';
     // Remove the data URL prefix to get just the base64-encoded image data
     const base64Image = imageData.replace(/^data:image\/\w+;base64,/, "");
@@ -50,7 +50,7 @@ export default async (req, context) => {
         owner,
         repo,
         path,
-        message: `Upload shoe image: ${shoeBrand}/${shoeLine}/${shoeModel}`,
+        message: `Upload shoe image: shoes/${shoeBrand}/${shoeLine}/${shoeModel}`,
         content: base64Image,
         encoding: "base64",
         branch: targetBranch,
