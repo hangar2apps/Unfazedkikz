@@ -1,4 +1,4 @@
-import { listStores } from "@netlify/blobs";
+import { getStore } from "@netlify/blobs";
 
 export default async (req, context) => {
   console.log("in getShoes cloud function");
@@ -20,15 +20,13 @@ export default async (req, context) => {
       )
     }
 
-    const { stores } = await listStores({
-      siteID: siteID,
-      token: token
-    });
-    console.log('stores', stores);
+    const shoes = getStore({ name: 'shoes', siteID: siteID, token: token });
+    const { blobs } = await shoes.list();
+    console.log('blobs', blobs);
 
-    if(stores.length === 0) {
+    if(blobs.length === 0) {
       return new Response(JSON.stringify({
-        stores: [],
+        blobs: [],
         shoes: ''
       }), {
         status: 200,
@@ -36,12 +34,8 @@ export default async (req, context) => {
       });
     }
 
-    
-
-
-
     return new Response(JSON.stringify({
-      stores: stores.filter(store => store !== 'Test' && store !== 'contactInfo'),
+      blobs: blobs,
       shoes: '' // this will be an object with shoeBrand as key 
     }), {
       status: 200,
