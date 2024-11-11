@@ -21,7 +21,7 @@ function Upload(props) {
         },
         body: JSON.stringify({
           passedStore: 'Asics',
-          shoeToDelete: 'Gel-Kahana TR V4',
+          shoeToDelete: 'Gel_Kahana-TR_V4',
         }),
       });
       console.log("response", response);
