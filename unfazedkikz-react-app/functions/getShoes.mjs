@@ -44,17 +44,22 @@ export default async (req, context) => {
       if(!shoeBrands.includes(shoeBrand)) {
         shoeBrands.push(shoeBrand);
       }
-
       const shoeObj = await shoes.get(blob.key);
       console.log('shoeObj', shoeObj);
 
-      // shoesArray.push()
+      shoesArray.push({
+        ID: shoeObj.ID,
+        ShoeBrand: shoeObj.shoeBrand,
+        ShoeLine: shoeObj.shoeLine,
+        ShoeModel: shoeObj.shoeModel,
+        URL: shoeObj.url
+      })
 
       
     });
 
 
-    console.log('shoeBrands', shoeBrands);
+    console.log('shoesArray', shoesArray);
 
     return new Response(JSON.stringify({
       blobs: blobs,
