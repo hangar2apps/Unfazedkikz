@@ -35,36 +35,29 @@ export default async (req, context) => {
     }
 
     //process blobs
-    let shoeBrands = [];
-    let shoesArray = [];
-    blobs.forEach(async blob => {
-      const shoeBrand = blob.key.split('/')[0];
-      const shoeLine = blob.key.split('/')[1];
-      const shoeModel = blob.key.split('/')[2];
-      if(!shoeBrands.includes(shoeBrand)) {
-        shoeBrands.push(shoeBrand);
-      }
-      console.log('getting past if');
+    const shoeBrands = new Set();
+    const shoesArray = await Promise.all(blobs.map(async (blob) => {
+      const [shoeBrand, shoeLine, shoeModel] = blob.key.split('/');
+      shoeBrands.add(shoeBrand);
+
       const shoeObj = await shoes.get(blob.key);
       console.log('shoeObj', shoeObj);
 
-      shoesArray.push({
+      return {
         ID: shoeObj.ID,
         ShoeBrand: shoeObj.shoeBrand,
         ShoeLine: shoeObj.shoeLine,
         ShoeModel: shoeObj.shoeModel,
         URL: shoeObj.url
-      })
+      };
+    }));
 
-      console.log('shoesArray', shoesArray);
-      
-    });
-
-    console.log('shoeBrands', shoeBrands);
+    console.log('shoeBrands', Array.from(shoeBrands));
+    console.log('shoesArray', shoesArray);
 
     return new Response(JSON.stringify({
       blobs: blobs,
-      shoes: '' // this will be an object with shoeBrand as key 
+      shoes: shoesArray // this will be an object with shoeBrand as key 
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
