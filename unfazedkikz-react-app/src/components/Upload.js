@@ -10,9 +10,9 @@ function Upload(props) {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
-useEffect(() => {
+useEffect((props) => {
   console.log('props', props)
-}, [])
+}, [props])
 
 
   const handleShoeBrandChange = (e) => {
