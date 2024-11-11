@@ -56,11 +56,11 @@ export default async (req, context) => {
         URL: shoeObj.url
       })
 
+      console.log('shoesArray', shoesArray);
       
     });
 
     console.log('shoeBrands', shoeBrands);
-    console.log('shoesArray', shoesArray);
 
     return new Response(JSON.stringify({
       blobs: blobs,
