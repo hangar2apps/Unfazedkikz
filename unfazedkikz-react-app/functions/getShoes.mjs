@@ -56,7 +56,7 @@ export default async (req, context) => {
     console.log('shoesArray', shoesArray);
 
     return new Response(JSON.stringify({
-      blobs: blobs,
+      shoeBrands: Array.from(shoeBrands),
       shoes: shoesArray // this will be an object with shoeBrand as key 
     }), {
       status: 200,
