@@ -1,0 +1,86 @@
+body {
+    background-color: #1a1d21;
+    color: white;
+  }
+  
+  .custom-form {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .custom-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #9333EA;
+    color: white;
+  }
+  
+  .custom-input:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #EC4899;
+    box-shadow: 0 0 0 0.25rem rgba(236, 72, 153, 0.25);
+    color: white;
+  }
+  
+  .custom-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .custom-input:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    border-color: #6B46C1;
+  }
+  
+  .custom-file-input::-webkit-file-upload-button {
+    background: linear-gradient(to right, #9333EA, #EC4899);
+    border: none;
+    color: white;
+    transition: opacity 0.3s;
+  }
+  
+  .custom-file-input::-webkit-file-upload-button:hover {
+    opacity: 0.9;
+  }
+  
+  .custom-btn {
+    background: linear-gradient(to right, #9333EA, #EC4899);
+    border: none;
+    transition: opacity 0.3s, transform 0.1s;
+  }
+  
+  .custom-btn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
+  .custom-btn:disabled {
+    background: linear-gradient(to right, #9333EA, #EC4899);
+    opacity: 0.3;
+  }
+  
+  .gradient-text {
+    background: linear-gradient(to right, #9333EA, #EC4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #EC4899;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }

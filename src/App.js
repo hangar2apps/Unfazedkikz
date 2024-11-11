@@ -1,33 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import FeaturedKicks from './components/FeaturedKicks';
-import ShoeOfWeek from './components/ShoeOfWeek';
-import Footer from './components/Footer';
+import Home from './components/Home';
+import Upload from './components/Upload';
 
 function App() {
 
-
-  useEffect(() => {
-    fetch('/api/getShoes')
-      .then(response => response.json())
-      .then(data => console.log('data', data))
-      .catch(error => console.error('Error fetching shoes:', error));
-  }, []);
-
   return (
+    <Router>
     <div className="App">
-      <Navbar />
-      <main>
-        <Hero />
-        <FeaturedKicks />
-        <ShoeOfWeek />
-      </main>
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/upload" element={<Upload />} />
+      </Routes>
     </div>
+    </Router>
   );
 }
 
