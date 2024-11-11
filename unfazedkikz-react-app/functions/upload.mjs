@@ -104,7 +104,7 @@ export default async (req, context) => {
         status: 200,
         headers: { "Content-Type": "application/json" }
       });
-    } catch (error) {
+  } catch (error) {
       console.error("GitHub API Error:", error);
       return new Response(JSON.stringify({ error: "Failed to upload image to GitHub" }), {
         status: 500,
