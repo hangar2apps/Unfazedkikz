@@ -8,7 +8,8 @@ import Upload from './components/Upload';
 
 function App() {
 
-  const [stores, setStores] = useState([]);
+  const [shoeBrands, setShoeBrands] = useState([]);
+  const [shoes, setShoes] = useState([]);
 
   useEffect(() => {
     const getShoes = async () => {
@@ -18,7 +19,8 @@ function App() {
         console.log("response", response);
         const data = await response.json();
         console.log("data", data);
-        setStores(data);
+        setShoeBrands(data.shoeBrands);
+        setShoes(data.shoes);
       } catch (error) {
         console.error("Error fetching shoes:", error);
       }
@@ -35,7 +37,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/upload" element={<Upload stores={stores} />} />
+        <Route path="/upload" element={<Upload shoeBrands={shoeBrands} />} />
       </Routes>
     </div>
     </Router>

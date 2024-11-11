@@ -123,14 +123,14 @@ function Upload(props) {
               <label htmlFor="shoeBrand" className="form-label">
                 Shoe Brand
               </label>
-              {/* <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
-                {props.stores.map((store) => (
-                  <option key={store} value={store}>
-                    {store}
+              <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
+                {props.shoeBrands.map((shoeBrand) => (
+                  <option key={shoeBrand} value={shoeBrand}>
+                    {shoeBrand}
                   </option>
                 ))}
-              </select> */}
-              <input
+              </select>
+              {/* <input
                 id="shoeBrand"
                 type="text"
                 className="form-control custom-input"
@@ -139,7 +139,7 @@ function Upload(props) {
                 required
                 disabled={uploading}
                 placeholder="Enter shoe brand"
-              />
+              /> */}
             </div>
             <div className="mb-3">
               <label htmlFor="shoeLine" className="form-label">
