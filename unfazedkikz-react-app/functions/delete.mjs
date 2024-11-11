@@ -21,12 +21,12 @@ export default async (req, context) => {
         )
       }
 
-      const asicsStore = getStore({ name: 'Asics', siteID: siteID, token: token });
-      await asicsStore.delete('Gel_Kahana-TR_V4_Silver_Red');
-      await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
-      await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
+    //   const asicsStore = getStore({ name: 'Asics', siteID: siteID, token: token });
+    //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_Red');
+    //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
+    //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
 
-      const newBalanceStore = getStore({ name: 'New_Balance', siteID: siteID, token: token });
+      const newBalanceStore = getStore({ name: 'New Balance', siteID: siteID, token: token });
       await newBalanceStore.delete('9060-Artic_Grey');
       await newBalanceStore.delete('9060-Beach_Glass');
       await newBalanceStore.delete('9060-Beef_and_Broccoli');
