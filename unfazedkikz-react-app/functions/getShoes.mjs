@@ -37,7 +37,7 @@ export default async (req, context) => {
     //process blobs
     let shoeBrands = [];
     blobs.forEach(blob => {
-      const shoeBrand = blob.split('/')[0];
+      const shoeBrand = blob.key.split('/')[0];
       if(!shoeBrands.includes(shoeBrand)) {
         shoeBrands.push(shoeBrand);
       }
