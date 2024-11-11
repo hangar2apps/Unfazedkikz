@@ -8,6 +8,25 @@ import Upload from './components/Upload';
 
 function App() {
 
+  useEffect(() => {
+    const getShoes = async () => {
+      console.log("getShoes");
+      try {
+        const response = await fetch("/api/getShoes");
+        console.log("response", response);
+        const data = await response.json();
+        console.log("data", data);
+      } catch (error) {
+        console.error("Error fetching shoes:", error);
+      }
+    };
+
+    getShoes();
+  }, []);
+
+  
+  
+
   return (
     <Router>
     <div className="App">

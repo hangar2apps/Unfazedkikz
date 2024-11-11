@@ -1,6 +1,7 @@
 import { listStores } from "@netlify/blobs";
 
 export default async (req, context) => {
+  console.log("in getShoes cloud function");
   // Only allow POST requests
   if (req.method !== "GET") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
@@ -12,7 +13,7 @@ export default async (req, context) => {
   try {
 
       //get shoes from blob
-      const siteID = process.env.IMAGE_SITE_ID;
+      const siteID = process.env.NETLIFY_SITE_ID;
       const token = process.env.NETLIFY_ACCESS_TOKEN;
     
       if (!siteID || !token) {
