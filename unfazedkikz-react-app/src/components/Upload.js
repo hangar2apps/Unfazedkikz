@@ -12,26 +12,26 @@ function Upload(props) {
 
 
   //use to delete shoes for testing
-  useEffect(() => {
-    const deleteShoes = async () => {
-      const response = await fetch("/api/delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
-      console.log("response", response);
+  // useEffect(() => {
+  //   const deleteShoes = async () => {
+  //     const response = await fetch("/api/delete", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({}),
+  //     });
+  //     console.log("response", response);
 
-      if (!response.ok) {
-        throw new Error("Failed to delete shoe");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to delete shoe");
+  //     }
 
-      console.log("Shoe deleted successfully");
-    };
+  //     console.log("Shoe deleted successfully");
+  //   };
 
-    deleteShoes();
-  }, [])
+  //   deleteShoes();
+  // }, [])
 
 
   const handleShoeBrandChange = (e) => {
