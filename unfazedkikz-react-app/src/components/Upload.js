@@ -19,10 +19,7 @@ function Upload(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          passedStore: 'Asics',
-          shoeToDelete: 'Gel_Kahana-TR_V4',
-        }),
+        body: JSON.stringify({}),
       });
       console.log("response", response);
 

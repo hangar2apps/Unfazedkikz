@@ -10,7 +10,6 @@ export default async (req, context) => {
     });
   }
   try {
-    const { passedStore, shoeToDelete } = await req.json();
 
       //delete shoe from blob
       const siteID = process.env.NETLIFY_SITE_ID;
@@ -22,13 +21,19 @@ export default async (req, context) => {
         )
       }
 
-      const store = getStore({ name: passedStore, siteID: siteID, token: token });
-      const key = `${shoeToDelete}`;
+      await store.delete('Gel_Kahana-TR_V4_Silver_Red');
+      await store.delete('Gel_Kahana-TR_V4_Silver_White');
+      await store.delete('Gel_Kahana-TR_V4_Silver_White');
 
-      await store.delete(key);
+      const newBalanceStore = getStore({ name: 'New_Balance', siteID: siteID, token: token });
+      await newBalanceStore.delete('9060-Artic_Grey');
+      await newBalanceStore.delete('9060-Beach_Glass');
+      await newBalanceStore.delete('9060-Beef_and_Broccoli');
+      await newBalanceStore.delete('9060-Beige_Cherry');
 
+      
       return new Response(JSON.stringify({
-        message: "Shoe bloob deleted",
+        message: "Shoe blob deleted",
       }), {
         status: 200,
         headers: { "Content-Type": "application/json" }
