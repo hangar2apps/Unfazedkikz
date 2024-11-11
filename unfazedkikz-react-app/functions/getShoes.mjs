@@ -26,6 +26,8 @@ export default async (req, context) => {
     });
     console.log('stores', stores);
 
+    
+
     return new Response(JSON.stringify({
       stores: stores.filter(store => store !== 'Test' && store !== 'contactInfo'),
       shoes: '' // this will be an object with shoeBrand as key 
