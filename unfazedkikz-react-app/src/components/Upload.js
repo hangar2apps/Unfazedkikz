@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CustomStyles.css";
 
-function Upload() {
+function Upload(props) {
   const [shoeBrand, setShoeBrand] = useState("");
   const [shoeLine, setShoeLine] = useState("");
   const [shoeModel, setShoeModel] = useState("");
@@ -10,7 +10,13 @@ function Upload() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
+useEffect(() => {
+  console.log('props', props)
+}, [])
+
+
   const handleShoeBrandChange = (e) => {
+    console.log("handleShoeBrandChange", e);
     setShoeBrand(e.target.value);
   };
 
@@ -97,7 +103,14 @@ function Upload() {
               <label htmlFor="shoeBrand" className="form-label">
                 Shoe Brand
               </label>
-              <input
+              <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
+                {props.stores.map((store) => (
+                  <option key={store} value={store}>
+                    {store}
+                  </option>
+                ))}
+              </select>
+              {/* <input
                 id="shoeBrand"
                 type="text"
                 className="form-control custom-input"
@@ -106,7 +119,7 @@ function Upload() {
                 required
                 disabled={uploading}
                 placeholder="Enter shoe brand"
-              />
+              /> */}
             </div>
             <div className="mb-3">
               <label htmlFor="shoeLine" className="form-label">

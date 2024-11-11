@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -8,6 +8,8 @@ import Upload from './components/Upload';
 
 function App() {
 
+  const [stores, setStores] = useState([]);
+
   useEffect(() => {
     const getShoes = async () => {
       console.log("getShoes");
@@ -16,6 +18,7 @@ function App() {
         console.log("response", response);
         const data = await response.json();
         console.log("data", data);
+        setStores(data.stores);
       } catch (error) {
         console.error("Error fetching shoes:", error);
       }
@@ -32,7 +35,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/upload" element={<Upload />} />
+        <Route path="/upload" element={<Upload stores={stores} />} />
       </Routes>
     </div>
     </Router>
