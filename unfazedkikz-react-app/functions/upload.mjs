@@ -80,7 +80,7 @@ export default async (req, context) => {
       const randomId = uuidv4();
 
       const store = getStore({ name: 'shoes', siteID: siteID, token: token });
-      const key = `${shoeBrand}/${shoeLine}/${shoeModel}.json`;
+      const key = `${shoeBrand}/${shoeLine}/${shoeModel}`;
 
       await store.set(key, JSON.stringify({
         ID: randomId,

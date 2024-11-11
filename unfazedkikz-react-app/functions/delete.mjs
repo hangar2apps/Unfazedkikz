@@ -26,11 +26,12 @@ export default async (req, context) => {
     //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
     //   await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
 
-      const newBalanceStore = getStore({ name: 'New Balance', siteID: siteID, token: token });
-      await newBalanceStore.delete('9060-Artic_Grey');
-      await newBalanceStore.delete('9060-Beach_Glass');
-      await newBalanceStore.delete('9060-Beef_and_Broccoli');
-      await newBalanceStore.delete('9060-Beige_Cherry');
+    //   const newBalanceStore = getStore({ name: 'New Balance', siteID: siteID, token: token });
+    //   await newBalanceStore.delete('9060-Artic_Grey');
+
+      const newBalanceStore = getStore({ name: 'shoes', siteID: siteID, token: token });
+      await newBalanceStore.delete('Nike/Test/Test.json');
+
 
       
       return new Response(JSON.stringify({
