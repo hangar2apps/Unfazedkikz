@@ -1,5 +1,22 @@
 import React from 'react';
 
+function handleSubmit(event) {
+  event.preventDefault();
+  console.log('Submitted');
+
+  fetch('/api/sendEmail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: 'hangar2apps@gmail.com',
+      message: 'Test message',
+      honeypot: false,
+    }),
+  });
+}
+
 function Footer() {
   return (
     <footer className="footer py-5">
@@ -24,7 +41,7 @@ function Footer() {
           <div className="col-md-4 mb-4">
             <h3 className="h5 mb-3">Newsletter</h3>
             <p>Stay updated with the latest drops and exclusive offers.</p>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="input-group">
                 <input type="email" className="form-control" placeholder="Your email" />
                 <button className="btn btn-primary" type="submit">Subscribe</button>
