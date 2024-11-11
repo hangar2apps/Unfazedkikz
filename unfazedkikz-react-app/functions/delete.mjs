@@ -22,9 +22,9 @@ export default async (req, context) => {
       }
 
       const asicsStore = getStore({ name: 'Asics', siteID: siteID, token: token });
-      await store.delete('Gel_Kahana-TR_V4_Silver_Red');
-      await store.delete('Gel_Kahana-TR_V4_Silver_White');
-      await store.delete('Gel_Kahana-TR_V4_Silver_White');
+      await asicsStore.delete('Gel_Kahana-TR_V4_Silver_Red');
+      await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
+      await asicsStore.delete('Gel_Kahana-TR_V4_Silver_White');
 
       const newBalanceStore = getStore({ name: 'New_Balance', siteID: siteID, token: token });
       await newBalanceStore.delete('9060-Artic_Grey');
