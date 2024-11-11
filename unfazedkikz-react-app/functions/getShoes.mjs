@@ -34,6 +34,18 @@ export default async (req, context) => {
       });
     }
 
+    //process blobs
+    let shoeBrands = [];
+    blobs.forEach(blob => {
+      const shoeBrand = blob.name.split('/')[0];
+      if(!shoeBrands.includes(shoeBrand)) {
+        shoeBrands.push(shoeBrand);
+      }
+    });
+
+
+    console.log('shoeBrands', shoeBrands);
+
     return new Response(JSON.stringify({
       blobs: blobs,
       shoes: '' // this will be an object with shoeBrand as key 
