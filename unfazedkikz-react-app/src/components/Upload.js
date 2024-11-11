@@ -10,9 +10,31 @@ function Upload(props) {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
-useEffect((props) => {
-  console.log('props', props)
-}, [props])
+
+  //use to delete shoes for testing
+  useEffect(() => {
+    const deleteShoes = async () => {
+      const response = await fetch("/api/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          passedStore: 'Asics',
+          shoeToDelete: 'Gel-Kahana TR V4',
+        }),
+      });
+      console.log("response", response);
+
+      if (!response.ok) {
+        throw new Error("Failed to delete shoe");
+      }
+
+      console.log("Shoe deleted successfully");
+    };
+
+    deleteShoes();
+  }, [])
 
 
   const handleShoeBrandChange = (e) => {

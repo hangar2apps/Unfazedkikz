@@ -82,14 +82,6 @@ export default async (req, context) => {
       const store = getStore({ name: 'shoes', siteID: siteID, token: token });
       const key = `${shoeBrand}/${shoeLine}/${shoeModel}.json`;
 
-      // const store = getStore({
-      //   name: shoeBrand,
-      //   siteID: siteID,
-      //   token: token
-      // });
- 
-      // const blobkey = `${shoeLine}-${shoeModel}`.replace(/[^a-zA-Z0-9-_]/g, '_');
-
       await store.set(key, JSON.stringify({
         ID: randomId,
         shoeBrand: shoeBrand,
@@ -98,14 +90,6 @@ export default async (req, context) => {
         url: response.data.content.download_url,
         createdAt: formattedDate 
       }));
-      // await store.set(blobkey, JSON.stringify({
-      //   ID: randomId,
-      //   shoeBrand: shoeBrand,
-      //   shoeLine: shoeLine,
-      //   shoeModel: shoeModel,
-      //   url: response.data.content.download_url,
-      //   createdAt: formattedDate 
-      // }));
 
       return new Response(JSON.stringify({
         message: "Image uploaded successfully",
