@@ -42,14 +42,13 @@ export default async (req, context) => {
 
       const shoeObj = await shoes.get(blob.key);
       const parsedShoeObj = JSON.parse(shoeObj);
-      console.log('parsedShoeObj', typeof parsedShoeObj, parsedShoeObj);
 
       return {
-        ID: shoeObj.ID,
-        ShoeBrand: shoeObj.shoeBrand,
-        ShoeLine: shoeObj.shoeLine,
-        ShoeModel: shoeObj.shoeModel,
-        URL: shoeObj.url
+        ID: parsedShoeObj.ID,
+        ShoeBrand: parsedShoeObj.shoeBrand,
+        ShoeLine: parsedShoeObj.shoeLine,
+        ShoeModel: parsedShoeObj.shoeModel,
+        URL: parsedShoeObj.url
       };
     }));
 
