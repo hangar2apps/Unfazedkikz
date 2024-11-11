@@ -41,7 +41,7 @@ export default async (req, context) => {
       shoeBrands.add(shoeBrand);
 
       const shoeObj = await shoes.get(blob.key);
-      console.log('shoeObj', shoeObj);
+      console.log('shoeObj', typeof shoeObj, shoeObj);
 
       return {
         ID: shoeObj.ID,
