@@ -48,7 +48,8 @@ function Footer() {
           </div>
         </div>
         <hr className="mt-4 mb-3" />
-        <p className="text-center small">© {new Date().getFullYear()} Unfazed Kikz. All rights reserved.</p>
+        <p className="text-center">© {new Date().getFullYear()} Unfazed Kikz. All rights reserved.</p>
+        <p>Powered by <a class="poweredByText" href="https://hangar2apps.com">Hangar2Apps</a></p>
       </div>
     </footer>
   );
