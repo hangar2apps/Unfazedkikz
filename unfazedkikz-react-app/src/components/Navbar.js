@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container">
-        {/* <a className="navbar-brand d-flex align-items-center" href="#">
+        <a className="navbar-brand d-flex align-items-center" href="#">
           <img
             src="https://github.com/hangar2apps/unfazedkikz_images/blob/main/unfazed-kikz-logo.png?raw=true"
             alt="Unfazed Kikz Logo"
@@ -13,10 +13,10 @@ function Navbar() {
             className="me-2"
           />
           <span className="fw-bold">Unfazed Kikz</span>
-        </a> */}
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        </a>
+        {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </button> */}
         <div className="collapse navbar-collapse" id="navbarNav">
           {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item"><a className="nav-link" href="#">New Arrivals</a></li>
@@ -31,9 +31,9 @@ function Navbar() {
               <i className="fas fa-search"></i>
             </button>
           </form>
-          <button className="btn btn-outline-light">
+          {/* <button className="btn btn-outline-light">
             <i className="fas fa-shopping-bag"></i>
-          </button>
+          </button> */}
         </div>
       </div>
     </nav>

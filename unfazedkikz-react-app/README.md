@@ -27,8 +27,3 @@ We would like the shoes to be easy to search for ie: pink Jordan one…an all pi
 shoe of the week
 need business facebook account
 purchasing through email
-
-
-
-
-unfazed.kikz.image.uploads@gmail.com

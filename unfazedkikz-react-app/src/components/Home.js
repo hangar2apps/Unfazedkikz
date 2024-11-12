@@ -127,41 +127,8 @@ function Home(props) {
       <Navbar />
       <main>
         <Hero />
-        <FeaturedKicks shoeBrands={shoeBrands} shoes={shoes} />
         {/* <ShoeOfWeek /> */}
-        {/* <div className="container">
-            {shoeBrands.map((brand, index) => (
-              <React.Fragment key={brand}>
-                <h2 className="col-12 mt-4">{brand}</h2>
-                <div className="row shoe-row">
-                {shoes
-                  .filter((shoe) => {
-                    return shoe.ShoeBrand === brand;
-                  })
-                  .map((shoe, index) => (
-                    <div className="col-md-4 shoe-card" key={shoe.ID}>
-                      <div className="card h-100">
-                        <img
-                          src={shoe.URL}
-                          className="card-img-top"
-                          alt={shoe.ShoeBrand}
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title text-white">
-                            {shoe.ShoeBrand}
-                          </h5>
-                          <p className="card-text text-white">{shoe.ShoeLine}</p>
-                          <button className="btn btn-primary w-100">
-                            Inquire
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  </div>
-                </React.Fragment>
-            ))}
-        </div> */}
+        <FeaturedKicks shoeBrands={shoeBrands} shoes={shoes} />
       </main>
       <Footer />
     </div>

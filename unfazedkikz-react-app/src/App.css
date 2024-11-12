@@ -20,6 +20,10 @@ body {
   background-color: #2d3748;
 }
 
+.card-title {
+  color: #fff;
+}
+
 .btn-primary {
   background-color: #6b46c1;
   border-color: #6b46c1;

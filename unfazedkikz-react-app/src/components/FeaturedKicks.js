@@ -18,9 +18,8 @@ function FeaturedKicks({shoeBrands, shoes}) {
   console.log('brandAndShoesArray', brandAndShoesArray);
 
   return (
-    <section className="featured-kicks py-5">
+    <section id='top' className="featured-kicks py-5">
       <div className="container">
-        <h2 className="text-center mb-5">Featured Kicks</h2>
         {brandAndShoesArray.map((obj, index) => (
             <BrandRow key={index} brand={obj.brand} shoes={obj.shoes} />
           ))

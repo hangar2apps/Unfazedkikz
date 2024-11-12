@@ -23,7 +23,7 @@ function BrandRow({ brand, shoes }) {
               <div key={shoe.ID} className="card shoe-card me-3" style={{minWidth: '200px'}}>
                 <img src={shoe.URL} className="card-img-top" alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`} />
                 <div className="card-body">
-                  <h5 className="card-title">{`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}</h5>
+                  <h5 className="card-title">{`${shoe.ShoeLine} ${shoe.ShoeModel}`}</h5>
                 </div>
               </div>
             ))}
