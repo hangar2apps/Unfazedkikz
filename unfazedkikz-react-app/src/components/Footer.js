@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from "react";
 
-function handleSubmit(event) {
-  event.preventDefault();
-  console.log('Submitted');
 
-  fetch('/api/sendEmail', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: 'hangar2apps@gmail.com',
-      message: 'Test message',
-      honeypot: false,
-    }),
-  });
-}
 
 function Footer() {
+
+  const [email, setEmail] = useState('');
+
+  function handleSubmit() {
+    console.log('email', email);
+  
+    fetch('/api/sendEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        message: 'New Subscriber',
+        honeypot: false,
+      }),
+    });
+  }
   return (
     <footer className="footer py-5">
       <div className="container">
@@ -39,17 +42,15 @@ function Footer() {
           </div>
           <div className="col-md-4 mb-4">
             <p>Stay updated with the latest drops and exclusive offers.</p>
-            <form onSubmit={handleSubmit}>
               <div className="input-group">
-                <input type="email" className="form-control" placeholder="Your email" />
-                <button className="btn btn-primary" type="submit">Subscribe</button>
+                <input type="email" className="form-control" placeholder="Your email" onChange={(e) => setEmail(e.target.value)} />
+                <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Subscribe</button>
               </div>
-            </form>
           </div>
         </div>
         <hr className="mt-4 mb-3" />
         <p className="text-center">© {new Date().getFullYear()} Unfazed Kikz. All rights reserved.</p>
-        <p>Powered by <a class="poweredByText" href="https://hangar2apps.com">Hangar2Apps</a></p>
+        <p className="text-center">Powered by <a className="text-light" href="https://hangar2apps.com">Hangar2Apps</a></p>
       </div>
     </footer>
   );
