@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2'
 
 function BrandRow({ brand, shoes }) {
   const scrollContainerRef = useRef(null);
@@ -13,6 +14,22 @@ function BrandRow({ brand, shoes }) {
     }
   };
 
+  const handleShoeClick = async (shoe) => {
+    console.log('shoe', shoe);
+    const {value: email } = await Swal.fire({
+      title: `${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
+      input: 'email',
+      inputPlaceholder: 'Enter your email',
+      html: `<img src="${shoe.URL}" alt="${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}" class="img-fluid rounded" />`,
+      icon: 'none',
+
+
+      // trying to style the confirm button
+      confirmButtonText: 'Get Info!',
+    });
+    console.log('email', email);
+  }
+
   return (
     <div className="brand-row mb-4">
       <h2 className="mb-3">{brand}</h2>
@@ -20,7 +37,7 @@ function BrandRow({ brand, shoes }) {
         <div className="scroll-container" ref={scrollContainerRef}>
           <div className="d-flex">
             {shoes.map((shoe, index) => (
-              <div key={shoe.ID} className="card shoe-card me-3" style={{minWidth: '200px'}}>
+              <div key={shoe.ID} className="card shoe-card me-3" style={{minWidth: '200px'}} onClick={() => handleShoeClick(shoe)}>
                 <img src={shoe.URL} className="card-img-top" alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`} />
                 <div className="card-body">
                   <h5 className="card-title">{`${shoe.ShoeLine} ${shoe.ShoeModel}`}</h5>

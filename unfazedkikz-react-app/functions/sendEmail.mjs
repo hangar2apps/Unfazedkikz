@@ -12,13 +12,7 @@ export default async (req, context) => {
 
   try {
     const bodyString = await req.text(); // Use .text() to read the request body as a string
-    const { email, message, honeypot } = JSON.parse(bodyString);
-
-    if (honeypot) {
-        return new Response(
-            JSON.stringify({message: "Nice try, bot"}), { status: 400 , headers: { 'Content-Type': 'application/json' } }
-        )
-    }
+    const { email, message } = JSON.parse(bodyString);
 
     const siteID = process.env.NETLIFY_SITE_ID;
     const token = process.env.NETLIFY_ACCESS_TOKEN;
@@ -59,9 +53,9 @@ export default async (req, context) => {
       `,
     });
 
-        return new Response(
-            JSON.stringify({message: "Email sent successfully"}), { status: 200 , headers: { 'Content-Type': 'application/json' } }
-        )
+    return new Response(
+        JSON.stringify({message: "Email sent successfully"}), { status: 200 , headers: { 'Content-Type': 'application/json' } }
+    )
   } catch (error) {
     console.error('Error sending email:', error);
     return new Response(
