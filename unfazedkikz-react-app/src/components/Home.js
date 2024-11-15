@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Hero from "./Hero";
 import FeaturedKicks from "./FeaturedKicks";
@@ -6,7 +6,7 @@ import FeaturedKicks from "./FeaturedKicks";
 import Footer from "./Footer";
 
 function Home(props) {
-  // const [shoeBrands, setShoeBrands] = useState(["Asics", "New Balance"]);
+  const [shoeBrands, setShoeBrands] = useState();
   const [shoes, setShoes] = useState([]);
 
   useEffect(() => {
@@ -124,6 +124,7 @@ function Home(props) {
         URL: "https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Artic%20Grey.jpg",
       },
     ])
+    setShoeBrands(["Asics", "New Balance"])
   }, [])
   
 
