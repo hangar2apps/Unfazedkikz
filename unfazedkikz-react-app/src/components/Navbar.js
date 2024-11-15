@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container">
-        <a className="navbar-brand d-flex align-items-center" href="#">
+        <a className="navbar-brand d-flex align-items-center" href="https://leafy-stardust-d259d9.netlify.app">
           <img
             src="https://github.com/hangar2apps/unfazedkikz_images/blob/main/unfazed-kikz-logo.png?raw=true"
             alt="Unfazed Kikz Logo"
