@@ -26,10 +26,10 @@ function Navbar() {
             <li className="nav-item"><a className="nav-link" href="#">Brands</a></li>
           </ul> */}
           <form className="d-flex me-2">
-            <input className="form-control me-2" type="search" placeholder="Search sneakers..." />
+            {/* <input className="form-control me-2" type="search" placeholder="Search sneakers..." />
             <button className="btn btn-outline-light" type="submit">
               <i className="fas fa-search"></i>
-            </button>
+            </button> */}
           </form>
           {/* <button className="btn btn-outline-light">
             <i className="fas fa-shopping-bag"></i>
