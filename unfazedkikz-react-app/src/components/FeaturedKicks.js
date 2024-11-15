@@ -3,7 +3,7 @@ import BrandRow from './BrandRow';
 
 function FeaturedKicks({shoeBrands, shoes}) {
 
-  let brands = JSON.parse(JSON.stringify(shoeBrands));
+  let brands = shoeBrands ? JSON.parse(JSON.stringify(shoeBrands)) : [];
   let brandAndShoesArray = [];
   for (let i = 0; i < brands.length; i++) {
     const brand = brands[i];
