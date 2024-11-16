@@ -14,6 +14,12 @@ function extractShoeInfo(filePath) {
     return { brand, line, model };
 }
 
+function delay(time) {
+    return new Promise(function(resolve) { 
+      setTimeout(resolve, time)
+    });
+}
+
 async function uploadImages(folderPath, websiteUrl) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
@@ -47,31 +53,47 @@ async function uploadImages(folderPath, websiteUrl) {
       await page.waitForSelector('#shoeLine');
       await page.waitForSelector('#shoeModel');
 
-      // Set the file input value
-      const inputElement = await page.$('input[type="file"]');
-      await inputElement.uploadFile(filePath);
+      
       // Fill in the shoe details
       await page.type('#shoeBrand', brand);
       await page.type('#shoeLine', line);
       await page.type('#shoeModel', model);
 
+      // Set the file input value
+      const inputElement = await page.$('input[type="file"]');
+      await inputElement.uploadFile(filePath);
+
+      // Store the current values to check if they're cleared after submission
+      const currentBrand = await page.$eval('#shoeBrand', el => el.value);
+      const currentLine = await page.$eval('#shoeLine', el => el.value);
+      const currentModel = await page.$eval('#shoeModel', el => el.value);
+
       // Click the upload button
       await page.click('button[type="submit"]');
 
-      // Wait for upload to complete (adjust the selector based on your UI)
-    //   await page.waitForSelector('.upload-success', { timeout: 60000 });
+    // Check for success indicators
+    const successIndicators = await page.evaluate(() => {
+        const brandCleared = document.querySelector('#shoeBrand').value === '';
+        const lineCleared = document.querySelector('#shoeLine').value === '';
+        const modelCleared = document.querySelector('#shoeModel').value === '';
+        return {
+            fieldsCleared: brandCleared && lineCleared && modelCleared,
+        };
+    });
+
+    if (successIndicators.fieldsCleared) {
+        console.log(`Uploaded successfully: ${file}`);
+      } else {
+        console.log(`Upload may have failed for: ${file}`);
+        // You might want to implement a retry mechanism here
+      }
+
+      await delay(2000);
 
       console.log(`Uploaded: ${file}`);
 
-      // Add a small delay between uploads
-    //   await page.waitForTimeout(5000);
+      await delay(5000);
 
-    setTimeout(() => {
-      console.log('Timeout reached');
-    }, 5000);
-
-      // Refresh the page to prepare for the next upload
-    //   await page.reload();
     }
   } catch (error) {
     console.error('An error occurred:', error);

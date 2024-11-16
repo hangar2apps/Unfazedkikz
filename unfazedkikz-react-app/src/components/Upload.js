@@ -199,9 +199,9 @@ function Upload(props) {
               <button
                 type="submit"
                 className="btn custom-btn text-white"
-                disabled={
-                  !shoeBrand || !shoeLine || !shoeModel || !file || uploading
-                }
+                // disabled={
+                //   !shoeBrand || !shoeLine || !shoeModel || !file || uploading
+                // }
               >
                 {uploading ? (
                   <>
