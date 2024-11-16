@@ -31,7 +31,7 @@ function Upload(props) {
       console.log("Shoe deleted successfully");
     };
 
-    // deleteShoes();
+    deleteShoes();
   }, [props])
 
 
@@ -89,12 +89,12 @@ function Upload(props) {
       const data = await response.json();
 
       setUploadedImageUrl(data.url);
-      alert("Image uploaded successfully!");
+      // alert("Image uploaded successfully!");
       // Reset form
       clearForm();
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Hmm, something went wrong. Make sure this image is not already uploaded.");
+      // alert("Hmm, something went wrong. Make sure this image is not already uploaded.");
     } finally {
       setUploading(false);
     }

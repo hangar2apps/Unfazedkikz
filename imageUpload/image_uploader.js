@@ -36,32 +36,32 @@ async function uploadImages(folderPath, websiteUrl) {
       console.log(`Processing: ${file}`);
       console.log(`Brand: ${brand}, Line: ${line}, Model: ${model}`);
 
-    //   // Wait for file input and other fields to be present
-    //   await page.waitForSelector('#image');
-    //   await page.waitForSelector('#shoeBrand');
-    //   await page.waitForSelector('#shoeLine');
-    //   await page.waitForSelector('#shoeModel');
+      // Wait for file input and other fields to be present
+      await page.waitForSelector('#image');
+      await page.waitForSelector('#shoeBrand');
+      await page.waitForSelector('#shoeLine');
+      await page.waitForSelector('#shoeModel');
 
-    //   // Set the file input value
-    //   const inputElement = await page.$('input[type="file"]');
-    //   await inputElement.uploadFile(filePath);
-    //   // Fill in the shoe details
-    //   await page.type('#shoeBrand', brand);
-    //   await page.type('#shoeLine', line);
-    //   await page.type('#shoeModel', model);
+      // Set the file input value
+      const inputElement = await page.$('input[type="file"]');
+      await inputElement.uploadFile(filePath);
+      // Fill in the shoe details
+      await page.type('#shoeBrand', brand);
+      await page.type('#shoeLine', line);
+      await page.type('#shoeModel', model);
 
-    //   // Click the upload button
-    //   await page.click('button[type="submit"]');
+      // Click the upload button
+      await page.click('button[type="submit"]');
 
-    //   // Wait for upload to complete (adjust the selector based on your UI)
-    //   await page.waitForSelector('.upload-success', { timeout: 60000 });
+      // Wait for upload to complete (adjust the selector based on your UI)
+      await page.waitForSelector('.upload-success', { timeout: 60000 });
 
-    //   console.log(`Uploaded: ${file}`);
+      console.log(`Uploaded: ${file}`);
 
-    //   // Add a small delay between uploads
-    //   await page.waitForTimeout(2000);
+      // Add a small delay between uploads
+      await page.waitForTimeout(2000);
 
-    //   // Refresh the page to prepare for the next upload
+      // Refresh the page to prepare for the next upload
     //   await page.reload();
     }
   } catch (error) {
