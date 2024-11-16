@@ -24,7 +24,13 @@ export default async (req, context) => {
       }
 
       const shoesStore = getStore({ name: 'shoes', siteID: siteID, token: token });
-      await shoesStore.delete('New BalanceNew Balance/90609060');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Granite PinkMoonrock Linen');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Natural IndigoNight Watch Purple');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Penny CookiePink Purple');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Prism PurpleRain Loud Grey');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Rose LimeSlate Grey');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Tea TreeTeam Forest Green');
+      await shoesStore.delete('New BalanceNew Balance/90609060/Triple WhiteWarped Multi Color');
 
 
       
