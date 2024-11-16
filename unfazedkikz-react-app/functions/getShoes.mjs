@@ -26,7 +26,7 @@ export default async (req, context) => {
 
     if(blobs.length === 0) {
       return new Response(JSON.stringify({
-        blobs: [],
+        shoeBrands: [],
         shoes: ''
       }), {
         status: 200,

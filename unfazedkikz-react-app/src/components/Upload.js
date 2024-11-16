@@ -13,25 +13,25 @@ function Upload(props) {
 
   //use to delete shoes for testing
   useEffect(() => {
-    console.log('in Upload.js useEffect');
-    const deleteShoes = async () => {
-      const response = await fetch("/api/delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
-      console.log("response", response);
+    console.log('in Upload.js useEffect', props);
+    // const deleteShoes = async () => {
+    //   const response = await fetch("/api/delete", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({}),
+    //   });
+    //   console.log("response", response);
 
-      if (!response.ok) {
-        throw new Error("Failed to delete shoe");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("Failed to delete shoe");
+    //   }
 
-      console.log("Shoe deleted successfully");
-    };
+    //   console.log("Shoe deleted successfully");
+    // };
 
-    deleteShoes();
+    // deleteShoes();
   }, [])
 
 
@@ -124,7 +124,7 @@ function Upload(props) {
                 Shoe Brand
               </label>
               <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
-                {props && props.shoeBrands && props.showBrands.length > 0 && props.shoeBrands.map((shoeBrand) => (
+                {props && props.shoeBrands && props.shoeBrands.length > 0 && props.shoeBrands.map((shoeBrand) => (
                   <option key={shoeBrand} value={shoeBrand}>
                     {shoeBrand}
                   </option>
