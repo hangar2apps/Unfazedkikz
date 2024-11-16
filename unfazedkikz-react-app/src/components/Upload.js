@@ -124,7 +124,7 @@ function Upload(props) {
                 Shoe Brand
               </label>
               <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
-                {props.shoeBrands.map((shoeBrand) => (
+                {props && props.shoeBrands && props.showBrands.length > 0 && props.shoeBrands.map((shoeBrand) => (
                   <option key={shoeBrand} value={shoeBrand}>
                     {shoeBrand}
                   </option>
