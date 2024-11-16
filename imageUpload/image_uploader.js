@@ -45,6 +45,7 @@ async function uploadImages(folderPath, websiteUrl) {
     await page.goto(websiteUrl);
 
     const files = await fs.readdir(folderPath, { withFileTypes: true });
+    console.log('files', files);
     const imageFiles = files
       .filter(
         (file) =>
@@ -92,35 +93,8 @@ async function uploadImages(folderPath, websiteUrl) {
         const inputElement = await page.$('input[type="file"]');
         await inputElement.uploadFile(filePath);
 
-        // Wait for the submit button to be enabled
-        await page.waitForFunction(
-          () => {
-            const submitButton = document.querySelector(
-              'button[type="submit"]'
-            );
-            return submitButton && !submitButton.disabled;
-          },
-          { timeout: 3000 }
-        );
-
         // Click the upload button
         await page.click('button[type="submit"]');
-
-        // Wait for the form to be cleared or for a success message
-        await page.waitForFunction(
-          () => {
-            const brandInput = document.querySelector("#shoeBrand");
-            const successMessage = document.querySelector(".text-success");
-            return (
-              (brandInput && brandInput.value === "") ||
-              (successMessage &&
-                successMessage.textContent.includes(
-                  "Image uploaded successfully"
-                ))
-            );
-          },
-          { timeout: 10000 }
-        );
 
         console.log(`Uploaded: ${file}`);
 
