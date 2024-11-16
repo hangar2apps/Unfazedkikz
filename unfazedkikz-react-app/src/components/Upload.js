@@ -32,7 +32,7 @@ function Upload(props) {
     // };
 
     // deleteShoes();
-  }, [])
+  }, [props])
 
 
   const handleShoeBrandChange = (e) => {
