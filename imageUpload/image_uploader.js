@@ -28,16 +28,18 @@ async function clearForm(page) {
       const fileInput = document.getElementById('image');
       if (fileInput) fileInput.value = '';
     });
+    console.log('cleared form');
   }
 
 async function uploadImages(folderPath, websiteUrl) {
+    console.log('Beginning upload*****');
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  page.on("dialog", async (dialog) => {
-    console.log("Dialog message:", dialog.message());
-    await dialog.accept();
-  });
+//   page.on("dialog", async (dialog) => {
+//     console.log("Dialog message:", dialog.message());
+//     await dialog.accept();
+//   });
 
   try {
     await page.goto(websiteUrl);
@@ -81,12 +83,10 @@ async function uploadImages(folderPath, websiteUrl) {
           timeout: 3000,
         });
 
-         // Fill in the form fields
-         await page.evaluate((data) => {
-            document.getElementById('shoeBrand').value = data.brand;
-            document.getElementById('shoeLine').value = data.line;
-            document.getElementById('shoeModel').value = data.model;
-          }, { brand, line, model });
+         // Fill in the shoe details
+        await page.type('#shoeBrand', brand);
+        await page.type('#shoeLine', line);
+        await page.type('#shoeModel', model);
 
         // Set the file input value
         const inputElement = await page.$('input[type="file"]');
@@ -103,11 +103,8 @@ async function uploadImages(folderPath, websiteUrl) {
           { timeout: 3000 }
         );
 
-        // Click the submit button using JavaScript
-        await page.evaluate(() => {
-          const submitButton = document.querySelector('button[type="submit"]');
-          if (submitButton) submitButton.click();
-        });
+        // Click the upload button
+        await page.click('button[type="submit"]');
 
         // Wait for the form to be cleared or for a success message
         await page.waitForFunction(
