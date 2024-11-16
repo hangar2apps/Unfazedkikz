@@ -1,5 +1,6 @@
 import { getStore } from "@netlify/blobs";
 
+//uncomment in Upload.js to delete shoes
 
 export default async (req, context) => {
   // Only allow POST requests
@@ -22,7 +23,7 @@ export default async (req, context) => {
       }
 
       const shoesStore = getStore({ name: 'shoes', siteID: siteID, token: token });
-      await shoesStore.delete('Nike/Test/Test.json');
+      await shoesStore.delete('Asics/Gel Kahana/TR V4');
 
 
       
