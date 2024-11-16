@@ -59,12 +59,16 @@ async function uploadImages(folderPath, websiteUrl) {
       await page.click('button[type="submit"]');
 
       // Wait for upload to complete (adjust the selector based on your UI)
-      await page.waitForSelector('.upload-success', { timeout: 60000 });
+    //   await page.waitForSelector('.upload-success', { timeout: 60000 });
 
       console.log(`Uploaded: ${file}`);
 
       // Add a small delay between uploads
-      await page.waitForTimeout(2000);
+    //   await page.waitForTimeout(5000);
+
+    setTimeout(() => {
+      console.log('Timeout reached');
+    }, 5000);
 
       // Refresh the page to prepare for the next upload
     //   await page.reload();
