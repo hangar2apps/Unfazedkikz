@@ -18,6 +18,11 @@ async function uploadImages(folderPath, websiteUrl) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
+  page.on('dialog', async dialog => {
+    console.log('Dialog message:', dialog.message());
+    await dialog.accept();
+  });
+
   try {
     await page.goto(websiteUrl);
 

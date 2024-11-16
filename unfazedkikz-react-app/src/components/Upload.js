@@ -9,6 +9,7 @@ function Upload(props) {
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
 
   //use to delete shoes for testing
@@ -31,7 +32,7 @@ function Upload(props) {
       console.log("Shoe deleted successfully");
     };
 
-    deleteShoes();
+    // deleteShoes();
   }, [props])
 
 
@@ -66,6 +67,7 @@ function Upload(props) {
     if (!shoeBrand || !shoeLine || !shoeModel || !file) return;
 
     setUploading(true);
+    setUploadSuccess(false);
 
     try {
       const response = await fetch("/api/upload", {
@@ -89,12 +91,14 @@ function Upload(props) {
       const data = await response.json();
 
       setUploadedImageUrl(data.url);
-      // alert("Image uploaded successfully!");
+      setUploadSuccess(true);
+      alert("Image uploaded successfully!");
       // Reset form
       clearForm();
     } catch (error) {
       console.error("Error uploading image:", error);
-      // alert("Hmm, something went wrong. Make sure this image is not already uploaded.");
+      alert("Hmm, something went wrong. Make sure this image is not already uploaded.");
+      setUploadSuccess(false);
     } finally {
       setUploading(false);
     }
@@ -107,6 +111,8 @@ function Upload(props) {
     setFile(null);
     setPreviewUrl(null);
     setUploadedImageUrl(null);
+    setUploadSuccess(false);
+
     // Reset the file input
     const fileInput = document.getElementById("image");
     if (fileInput) {
@@ -222,18 +228,20 @@ function Upload(props) {
                 Clear Form
               </button>
             </div>
-            {uploadedImageUrl && (
-              <div className="mt-3 text-center">
-                <p className=".upload-success text-success">Image uploaded successfully!</p>
-                <a
-                  href={uploadedImageUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline-light"
-                >
+            {uploadSuccess && (
+              <div className="mt-3 text-center upload-success">
+                <p className="text-success">Image uploaded successfully!</p>
+                {uploadedImageUrl && (
+                  <a
+                    href={uploadedImageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline-light"
+                  >
                   View uploaded image
-                </a>
-              </div>
+                  </a>
+                )}
+                </div>
             )}
           </form>
         </div>

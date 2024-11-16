@@ -21,7 +21,7 @@ function FeaturedKicks({shoeBrands, shoes}) {
     <section id='top' className="featured-kicks py-5">
       <div className="container">
         {brandAndShoesArray.map((obj, index) => (
-            <BrandRow key={index} brand={obj.brand} shoes={obj.shoes} />
+            <BrandRow key={`${index}${new Date().getTime()}`} brand={obj.brand} shoes={obj.shoes} brandUrl={obj.brandUrl} />
           ))
         }
       </div>

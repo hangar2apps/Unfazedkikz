@@ -6,14 +6,6 @@ import FeaturedKicks from "./FeaturedKicks";
 import Footer from "./Footer";
 
 function Home(props) {
-  const [shoeBrands, setShoeBrands] = useState();
-  const [shoes, setShoes] = useState([]);
-
-  useEffect(() => {
-    setShoes([])
-    setShoeBrands([])
-  }, [])
-  
 
   return (
     <div>
@@ -21,7 +13,7 @@ function Home(props) {
       <main>
         <Hero />
         {/* <ShoeOfWeek /> */}
-        <FeaturedKicks shoeBrands={shoeBrands} shoes={shoes} />
+        <FeaturedKicks shoeBrands={props.shoeBrands} shoes={props.shoes} />
       </main>
       <Footer />
     </div>
