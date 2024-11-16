@@ -5,23 +5,14 @@ const path = require('path');
 function extractShoeInfo(filePath) {
     const parts = filePath.split(path.sep);
     const brand = parts[parts.length - 3]; // Assumes brand is two levels up from the file
-    const lineAndModel = parts[parts.length - 2];
+    const line = parts[parts.length - 2]; // Assumes line is the immediate parent directory
     
-    // Split the line and model, assuming the model starts with a number or 'V'
-    const match = lineAndModel.match(/^(.*?)\s+((?:V?\d+|V\s+\d+).*)/);
-    
-    let line, model;
-    if (match) {
-      line = match[1].trim();
-      model = match[2].trim();
-    } else {
-      // If no clear separation is found, use the whole string as the line
-      line = lineAndModel;
-      model = '';
-    }
+    // Extract model from the file name
+    const fileName = path.basename(filePath, path.extname(filePath));
+    const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, '').trim();
   
     return { brand, line, model };
-  }
+}
 
 async function uploadImages(folderPath, websiteUrl) {
   const browser = await puppeteer.launch({ headless: false });
@@ -81,7 +72,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = '/Users/bryanrigsby/Desktop/Asics/Gel Kahana';
+const folderPath = '/Users/bryanrigsby/Desktop/New Balance/9060';
 const websiteUrl = 'https://leafy-stardust-d259d9.netlify.app/upload';
 
 uploadImages(folderPath, websiteUrl);
