@@ -70,19 +70,19 @@ async function uploadImages(folderPath, websiteUrl) {
         await delay(3000);
 
         // Wait for file input and other fields to be present
-        await page.waitForSelector("#image", { visible: true, timeout: 3000 });
-        await page.waitForSelector("#shoeBrand", {
-          visible: true,
-          timeout: 3000,
-        });
-        await page.waitForSelector("#shoeLine", {
-          visible: true,
-          timeout: 3000,
-        });
-        await page.waitForSelector("#shoeModel", {
-          visible: true,
-          timeout: 3000,
-        });
+        // await page.waitForSelector("#image", { visible: true, timeout: 3000 });
+        // await page.waitForSelector("#shoeBrand", {
+        //   visible: true,
+        //   timeout: 3000,
+        // });
+        // await page.waitForSelector("#shoeLine", {
+        //   visible: true,
+        //   timeout: 3000,
+        // });
+        // await page.waitForSelector("#shoeModel", {
+        //   visible: true,
+        //   timeout: 3000,
+        // });
 
          // Fill in the shoe details
         await page.type('#shoeBrand', brand);
