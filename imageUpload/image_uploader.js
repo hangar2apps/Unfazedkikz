@@ -1,31 +1,41 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs').promises;
-const path = require('path');
+const puppeteer = require("puppeteer");
+const fs = require("fs").promises;
+const path = require("path");
 
 function extractShoeInfo(filePath) {
-    const parts = filePath.split(path.sep);
-    const brand = parts[parts.length - 3]; // Assumes brand is two levels up from the file
-    const line = parts[parts.length - 2]; // Assumes line is the immediate parent directory
-    
-    // Extract model from the file name
-    const fileName = path.basename(filePath, path.extname(filePath));
-    const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, '').trim();
-  
-    return { brand, line, model };
+  const parts = filePath.split(path.sep);
+  const brand = parts[parts.length - 3]; // Assumes brand is two levels up from the file
+  const line = parts[parts.length - 2]; // Assumes line is the immediate parent directory
+
+  // Extract model from the file name
+  const fileName = path.basename(filePath, path.extname(filePath));
+  const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, "").trim();
+
+  return { brand, line, model };
 }
 
 function delay(time) {
-    return new Promise(function(resolve) { 
-      setTimeout(resolve, time)
-    });
+  return new Promise(function (resolve) {
+    setTimeout(resolve, time);
+  });
 }
+
+async function clearForm(page) {
+    await page.evaluate(() => {
+      document.getElementById('shoeBrand').value = '';
+      document.getElementById('shoeLine').value = '';
+      document.getElementById('shoeModel').value = '';
+      const fileInput = document.getElementById('image');
+      if (fileInput) fileInput.value = '';
+    });
+  }
 
 async function uploadImages(folderPath, websiteUrl) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  page.on('dialog', async dialog => {
-    console.log('Dialog message:', dialog.message());
+  page.on("dialog", async (dialog) => {
+    console.log("Dialog message:", dialog.message());
     await dialog.accept();
   });
 
@@ -34,76 +44,104 @@ async function uploadImages(folderPath, websiteUrl) {
 
     const files = await fs.readdir(folderPath, { withFileTypes: true });
     const imageFiles = files
-      .filter(file => file.isFile() && ['.png', '.jpg', '.jpeg', '.gif'].includes(path.extname(file.name).toLowerCase()))
-      .map(file => file.name);
+      .filter(
+        (file) =>
+          file.isFile() &&
+          [".png", ".jpg", ".jpeg", ".gif"].includes(
+            path.extname(file.name).toLowerCase()
+          )
+      )
+      .map((file) => file.name);
 
     for (const file of imageFiles) {
       const filePath = path.join(folderPath, file);
       const { brand, line, model } = extractShoeInfo(filePath);
 
-
-    //   Brand: Asics, Line: Gel, Model: Kahana
-
       console.log(`Processing: ${file}`);
       console.log(`Brand: ${brand}, Line: ${line}, Model: ${model}`);
 
-      // Wait for file input and other fields to be present
-      await page.waitForSelector('#image');
-      await page.waitForSelector('#shoeBrand');
-      await page.waitForSelector('#shoeLine');
-      await page.waitForSelector('#shoeModel');
+      try {
 
-      
-      // Fill in the shoe details
-      await page.type('#shoeBrand', brand);
-      await page.type('#shoeLine', line);
-      await page.type('#shoeModel', model);
+        // Clear the form before starting a new upload
+        await clearForm(page);
+        await delay(3000);
 
-      // Set the file input value
-      const inputElement = await page.$('input[type="file"]');
-      await inputElement.uploadFile(filePath);
+        // Wait for file input and other fields to be present
+        await page.waitForSelector("#image", { visible: true, timeout: 3000 });
+        await page.waitForSelector("#shoeBrand", {
+          visible: true,
+          timeout: 3000,
+        });
+        await page.waitForSelector("#shoeLine", {
+          visible: true,
+          timeout: 3000,
+        });
+        await page.waitForSelector("#shoeModel", {
+          visible: true,
+          timeout: 3000,
+        });
 
-      // Store the current values to check if they're cleared after submission
-      const currentBrand = await page.$eval('#shoeBrand', el => el.value);
-      const currentLine = await page.$eval('#shoeLine', el => el.value);
-      const currentModel = await page.$eval('#shoeModel', el => el.value);
+         // Fill in the form fields
+         await page.evaluate((data) => {
+            document.getElementById('shoeBrand').value = data.brand;
+            document.getElementById('shoeLine').value = data.line;
+            document.getElementById('shoeModel').value = data.model;
+          }, { brand, line, model });
 
-      // Click the upload button
-      await page.click('button[type="submit"]');
+        // Set the file input value
+        const inputElement = await page.$('input[type="file"]');
+        await inputElement.uploadFile(filePath);
 
-    // Check for success indicators
-    const successIndicators = await page.evaluate(() => {
-        const brandCleared = document.querySelector('#shoeBrand').value === '';
-        const lineCleared = document.querySelector('#shoeLine').value === '';
-        const modelCleared = document.querySelector('#shoeModel').value === '';
-        return {
-            fieldsCleared: brandCleared && lineCleared && modelCleared,
-        };
-    });
+        // Wait for the submit button to be enabled
+        await page.waitForFunction(
+          () => {
+            const submitButton = document.querySelector(
+              'button[type="submit"]'
+            );
+            return submitButton && !submitButton.disabled;
+          },
+          { timeout: 3000 }
+        );
 
-    if (successIndicators.fieldsCleared) {
-        console.log(`Uploaded successfully: ${file}`);
-      } else {
-        console.log(`Upload may have failed for: ${file}`);
-        // You might want to implement a retry mechanism here
+        // Click the submit button using JavaScript
+        await page.evaluate(() => {
+          const submitButton = document.querySelector('button[type="submit"]');
+          if (submitButton) submitButton.click();
+        });
+
+        // Wait for the form to be cleared or for a success message
+        await page.waitForFunction(
+          () => {
+            const brandInput = document.querySelector("#shoeBrand");
+            const successMessage = document.querySelector(".text-success");
+            return (
+              (brandInput && brandInput.value === "") ||
+              (successMessage &&
+                successMessage.textContent.includes(
+                  "Image uploaded successfully"
+                ))
+            );
+          },
+          { timeout: 10000 }
+        );
+
+        console.log(`Uploaded: ${file}`);
+
+        await delay(3000);
+      } catch (uploadError) {
+        console.error(`Error uploading ${file}:`, uploadError);
+        await delay(3000);
       }
-
-      await delay(2000);
-
-      console.log(`Uploaded: ${file}`);
-
-      await delay(5000);
-
     }
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.error("An error occurred:", error);
   } finally {
     await browser.close();
   }
 }
 
 // Usage
-const folderPath = '/Users/bryanrigsby/Desktop/New Balance/9060';
-const websiteUrl = 'https://leafy-stardust-d259d9.netlify.app/upload';
+const folderPath = "/Users/bryanrigsby/Desktop/New Balance/9060";
+const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
 
 uploadImages(folderPath, websiteUrl);

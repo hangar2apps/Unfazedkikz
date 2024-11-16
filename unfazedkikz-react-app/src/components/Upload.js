@@ -31,7 +31,7 @@ function Upload(props) {
       console.log("Shoe deleted successfully");
     };
 
-    // deleteShoes();
+    deleteShoes();
   }, [props])
 
 
