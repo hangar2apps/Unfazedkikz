@@ -5,7 +5,10 @@ const path = require("path");
 function extractShoeInfo(filePath) {
     const parts = filePath.split(path.sep);
     const brand = parts[parts.length - 3].replace(/New Balance(?:New Balance)?/, 'New Balance');
-    const line = parts[parts.length - 2].replace(/9060(?:9060)?/, '9060');
+    let line = parts[parts.length - 2];
+    // Specific handling for the "9060" case
+    console.log('line', line);
+    line = line === "90609060" ? "9060" : line;
     const fileName = path.basename(filePath, path.extname(filePath));
     const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, "").trim();
   
@@ -87,8 +90,15 @@ async function uploadImages(folderPath, websiteUrl) {
         const inputElement = await page.$('input[type="file"]');
         await inputElement.uploadFile(filePath);
 
-        // Click the upload button
-        await page.click('button[type="submit"]');
+        await page.waitForFunction(() => {
+            const submitButton = document.querySelector('button[type="submit"]');
+            return submitButton && !submitButton.disabled;
+        }, { timeout: 5000 });
+
+        await page.evaluate(() => {
+            const submitButton = document.querySelector('button[type="submit"]');
+            if (submitButton) submitButton.click();
+        });
 
         console.log(`Uploaded: ${file}`);
 
