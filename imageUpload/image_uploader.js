@@ -12,27 +12,21 @@ function extractShoeInfo(filePath) {
     return { brand, line, model };
 }
 
-async function resetBrowser(browser) {
-    const pages = await browser.pages();
-    for (const page of pages) {
-        if (page !== (await browser.pages())[0]) {  // Keep the first page open
-            await page.close();
-        }
-    }
-    const page = (await browser.pages())[0];  // Use the first page
-    await page.goto('https://leafy-stardust-d259d9.netlify.app/upload', { waitUntil: 'networkidle0' });
-    return page;
+async function resetBrowser(url) {
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle0' });
+    return {browser, page};
 }
 
 
 
 async function uploadImages(folderPath, websiteUrl) {
   console.log('Beginning upload*****');
-  const browser = await puppeteer.launch({ headless: false });
-  let page = await browser.newPage();
+  let browser, page;
 
   try {
-    await page.goto(websiteUrl);
+    ({ browser, page } = await resetBrowser(websiteUrl));
 
     const files = await fs.readdir(folderPath, { withFileTypes: true });
     const imageFiles = files
@@ -96,15 +90,16 @@ async function uploadImages(folderPath, websiteUrl) {
 
         console.log(`Uploaded: ${file}`);
 
-        page = await resetBrowser(browser);
+        await browser.close();
+        ({ browser, page } = await resetBrowser(websiteUrl));
       } catch (uploadError) {
         console.error(`Error uploading ${file}:`, uploadError);
-        page = await resetBrowser(browser);
+        await browser.close();
+        ({ browser, page } = await resetBrowser(websiteUrl));
       }
     }
   } catch (error) {
     console.error("An error occurred:", error);
-    page = await resetBrowser(browser);
   } finally {
     await browser.close();
   }
