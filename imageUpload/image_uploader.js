@@ -15,17 +15,19 @@ function extractShoeInfo(filePath) {
 async function resetBrowser(browser) {
     const pages = await browser.pages();
     for (const page of pages) {
-      await page.close();
+        if (page !== (await browser.pages())[0]) {  // Keep the first page open
+            await page.close();
+        }
     }
-    const newPage = await browser.newPage();
-    await newPage.goto('https://leafy-stardust-d259d9.netlify.app/upload', { waitUntil: 'networkidle0' });
-    return newPage;
+    const page = (await browser.pages())[0];  // Use the first page
+    await page.goto('https://leafy-stardust-d259d9.netlify.app/upload', { waitUntil: 'networkidle0' });
+    return page;
 }
 
 
 
 async function uploadImages(folderPath, websiteUrl) {
-    console.log('Beginning upload*****');
+  console.log('Beginning upload*****');
   const browser = await puppeteer.launch({ headless: false });
   let page = await browser.newPage();
 
@@ -87,7 +89,9 @@ async function uploadImages(folderPath, websiteUrl) {
         // Click the submit button
         await page.click('button[type="submit"]');
 
-        await page.waitForSelector('.upload-success', { visible: true, timeout: 30000 });
+        let isUploadSuccess = await page.waitForSelector('.upload-success', { visible: true, timeout: 30000 });
+
+        console.log('isUploadSuccess', isUploadSuccess);
 
 
         console.log(`Uploaded: ${file}`);
@@ -95,19 +99,19 @@ async function uploadImages(folderPath, websiteUrl) {
         page = await resetBrowser(browser);
       } catch (uploadError) {
         console.error(`Error uploading ${file}:`, uploadError);
-        await browser.close();
+        page = await resetBrowser(browser);
       }
     }
   } catch (error) {
     console.error("An error occurred:", error);
-    await browser.close();
+    page = await resetBrowser(browser);
   } finally {
     await browser.close();
   }
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/New Balance/990";
+const folderPath = "/Users/bryanrigsby/Desktop/Asics/Gel Kahana";
 const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
 
 uploadImages(folderPath, websiteUrl);

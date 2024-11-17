@@ -89,6 +89,8 @@ function Upload(props) {
       const data = await response.json();
 
       setUploadedImageUrl(data.url);
+
+      new Promise(resolve => setTimeout(resolve, 5000));
       // alert("Image uploaded successfully!");
       clearForm();
     } catch (error) {
