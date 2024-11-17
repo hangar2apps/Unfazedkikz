@@ -199,6 +199,11 @@ function Upload(props) {
               <button
                 type="submit"
                 className="btn custom-btn text-white"
+              >Upload Shoe
+              </button>
+              {/* <button
+                type="submit"
+                className="btn custom-btn text-white"
                 // disabled={
                 //   !shoeBrand || !shoeLine || !shoeModel || !file || uploading
                 // }
@@ -211,7 +216,7 @@ function Upload(props) {
                 ) : (
                   "Upload Shoe"
                 )}{" "}
-              </button>
+              </button> */}
               <button
                 type="button"
                 className="btn btn-outline-light"
@@ -223,7 +228,7 @@ function Upload(props) {
             </div>
             {uploadedImageUrl && (
               <div className="mt-3 text-center">
-                <p className=".upload-success text-success">Image uploaded successfully!</p>
+                <p className="upload-success text-success">Image uploaded successfully!</p>
                 <a
                   href={uploadedImageUrl}
                   target="_blank"
