@@ -86,8 +86,8 @@ function Upload(props) {
       });
       console.log("response", response);
 
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
+      if (response.status !== 200) {
+        throw new Error(`Failed to upload image: ${shoeBrand}, ${shoeLine}, ${shoeModel}`);
       }
 
       const data = await response.json();
