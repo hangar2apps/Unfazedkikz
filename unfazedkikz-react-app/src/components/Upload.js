@@ -181,7 +181,7 @@ function Upload(props) {
                 accept="image/*"
                 onChange={handleFileChange}
                 required
-                disabled={uploading}
+                // disabled={uploading}
               />
             </div>
             {previewUrl && (
@@ -196,8 +196,8 @@ function Upload(props) {
               </div>
             )}
             <div className="d-flex justify-content-between align-items-center">
-              {" "}
               <button
+                id="uploadButton"
                 type="submit"
                 className="btn custom-btn text-white"
               >Upload Shoe
@@ -228,7 +228,7 @@ function Upload(props) {
                 Clear Form
               </button>
             </div>
-            {uploadedImageUrl && (
+            {/* {uploadedImageUrl && (
               <div className="mt-3 text-center">
                 <p className="upload-success text-success">Image uploaded successfully!</p>
                 <a
@@ -240,7 +240,7 @@ function Upload(props) {
                   View uploaded image
                 </a>
               </div>
-            )}
+            )} */}
           </form>
         </div>
       </div>

@@ -66,6 +66,8 @@ async function uploadImages(folderPath, websiteUrl) {
           visible: true,
           timeout: 3000,
         });
+        await page.waitForSelector('button[type="submit"]', { visible: true, timeout: 5000 });
+
 
          // Fill in the shoe details
         await page.type('#shoeBrand', brand);
@@ -76,8 +78,17 @@ async function uploadImages(folderPath, websiteUrl) {
         const inputElement = await page.$('input[type="file"]');
         await inputElement.uploadFile(filePath);
         
-        const submitButton = await page.$('button[type="submit"]');
-        await submitButton.click();
+        // Wait for the submit button to be enabled
+        await page.waitForFunction(() => {
+            const submitButton = document.querySelector('button[type="submit"]');
+            return submitButton && !submitButton.disabled;
+        }, { timeout: 5000 });
+  
+        // Click the submit button
+        await page.click('button[type="submit"]');
+
+        await page.waitForSelector('.upload-success', { visible: true, timeout: 30000 });
+
 
         console.log(`Uploaded: ${file}`);
 
@@ -96,7 +107,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/New Balance/9060";
+const folderPath = "/Users/bryanrigsby/Desktop/New Balance/990";
 const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
 
 uploadImages(folderPath, websiteUrl);
