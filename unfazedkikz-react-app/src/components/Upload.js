@@ -187,6 +187,7 @@ function Upload(props) {
             {previewUrl && (
               <div className="mb-3">
                 <img
+                  id="previewImage"
                   src={previewUrl}
                   alt="Preview"
                   className="img-fluid rounded"
@@ -218,10 +219,11 @@ function Upload(props) {
                 )}{" "}
               </button> */}
               <button
+                id="clearButton"
                 type="button"
                 className="btn btn-outline-light"
                 onClick={clearForm}
-                disabled={uploading}
+                // disabled={uploading}
               >
                 Clear Form
               </button>
