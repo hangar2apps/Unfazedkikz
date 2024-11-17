@@ -3,30 +3,25 @@ const fs = require("fs").promises;
 const path = require("path");
 
 function extractShoeInfo(filePath) {
-  const parts = filePath.split(path.sep);
-  const brand = parts[parts.length - 3]; // Assumes brand is two levels up from the file
-  const line = parts[parts.length - 2]; // Assumes line is the immediate parent directory
-
-  // Extract model from the file name
-  const fileName = path.basename(filePath, path.extname(filePath));
-  const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, "").trim();
-
-  return { brand, line, model };
+    const parts = filePath.split(path.sep);
+    const brand = parts[parts.length - 3].replace(/New Balance(?:New Balance)?/, 'New Balance');
+    const line = parts[parts.length - 2].replace(/9060(?:9060)?/, '9060');
+    const fileName = path.basename(filePath, path.extname(filePath));
+    const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, "").trim();
+  
+    return { brand, line, model };
 }
 
 function delay(time) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, time);
-  });
+    return new Promise(resolve => setTimeout(resolve, time));
 }
 
 async function clearForm(page) {
     await page.evaluate(() => {
-      document.getElementById('shoeBrand').value = '';
-      document.getElementById('shoeLine').value = '';
-      document.getElementById('shoeModel').value = '';
-      const fileInput = document.getElementById('image');
-      if (fileInput) fileInput.value = '';
+        ['shoeBrand', 'shoeLine', 'shoeModel', 'image'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.value = '';
+        });
     });
     console.log('cleared form');
   }
@@ -45,7 +40,6 @@ async function uploadImages(folderPath, websiteUrl) {
     await page.goto(websiteUrl);
 
     const files = await fs.readdir(folderPath, { withFileTypes: true });
-    console.log('files', files);
     const imageFiles = files
       .filter(
         (file) =>
