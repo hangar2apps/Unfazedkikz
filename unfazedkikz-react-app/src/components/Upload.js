@@ -136,7 +136,7 @@ function Upload(props) {
                 value={shoeBrand}
                 onChange={handleShoeBrandChange}
                 required
-                disabled={uploading}
+                // disabled={uploading}
                 placeholder="Enter shoe brand"
               />
             </div>
@@ -151,7 +151,7 @@ function Upload(props) {
                 value={shoeLine}
                 onChange={handleShoeLineChange}
                 required
-                disabled={uploading}
+                // disabled={uploading}
                 placeholder="Enter shoe line"
               />
             </div>
@@ -166,7 +166,7 @@ function Upload(props) {
                 value={shoeModel}
                 onChange={handleShoeModelChange}
                 required
-                disabled={uploading}
+                // disabled={uploading}
                 placeholder="Enter shoe model"
               />
             </div>
@@ -228,19 +228,11 @@ function Upload(props) {
                 Clear Form
               </button>
             </div>
-            {/* {uploadedImageUrl && (
+            {uploadedImageUrl ? (
               <div className="mt-3 text-center">
                 <p className="upload-success text-success">Image uploaded successfully!</p>
-                <a
-                  href={uploadedImageUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline-light"
-                >
-                  View uploaded image
-                </a>
               </div>
-            )} */}
+            ) : null}
           </form>
         </div>
       </div>
