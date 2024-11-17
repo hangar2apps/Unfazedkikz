@@ -92,6 +92,8 @@ function Upload(props) {
 
       const data = await response.json();
 
+      console.log('data', data);
+
       setUploadedImageUrl(data.url);
 
 

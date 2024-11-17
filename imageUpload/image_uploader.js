@@ -83,7 +83,7 @@ async function uploadImages(folderPath, websiteUrl) {
         // Click the submit button
         await page.click('button[type="submit"]');
 
-        let isUploadSuccess = await page.waitForSelector('.upload-success', { visible: true, timeout: 30000 });
+        let isUploadSuccess = await page.waitForSelector('.upload-success', { visible: true, timeout: 300000 });
 
         console.log('isUploadSuccess', isUploadSuccess);
 
@@ -108,7 +108,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/New Balance/9060";
+const folderPath = "/Users/bryanrigsby/Desktop/New Balance/990";
 const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
 
 uploadImages(folderPath, websiteUrl);
