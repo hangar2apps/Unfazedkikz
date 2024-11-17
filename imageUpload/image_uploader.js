@@ -87,6 +87,8 @@ async function uploadImages(folderPath, websiteUrl) {
 
         console.log('isUploadSuccess', isUploadSuccess);
 
+        new Promise(resolve => setTimeout(resolve, 10000));
+
 
         console.log(`Uploaded: ${file}`);
 
@@ -106,7 +108,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/Asics/Gel Kahana";
+const folderPath = "/Users/bryanrigsby/Desktop/New Balance/9060";
 const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
 
 uploadImages(folderPath, websiteUrl);

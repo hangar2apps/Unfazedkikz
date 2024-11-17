@@ -34,6 +34,10 @@ function Upload(props) {
     deleteShoes();
   }, [props])
 
+  useEffect(() => {
+    console.log('uploadedImageUrl', uploadedImageUrl);
+  }, [uploadedImageUrl])
+
 
   const handleShoeBrandChange = (e) => {
     console.log("handleShoeBrandChange", e);
@@ -90,7 +94,8 @@ function Upload(props) {
 
       setUploadedImageUrl(data.url);
 
-      new Promise(resolve => setTimeout(resolve, 5000));
+
+      new Promise(resolve => setTimeout(resolve, 10000));
       // alert("Image uploaded successfully!");
       clearForm();
     } catch (error) {
