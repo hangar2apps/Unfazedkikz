@@ -105,11 +105,12 @@ async function uploadImages(folderPath, websiteUrl) {
         await delay(3000);
       } catch (uploadError) {
         console.error(`Error uploading ${file}:`, uploadError);
-        await delay(3000);
+        await browser.close();
       }
     }
   } catch (error) {
     console.error("An error occurred:", error);
+    await browser.close();
   } finally {
     await browser.close();
   }

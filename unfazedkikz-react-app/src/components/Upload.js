@@ -221,7 +221,7 @@ function Upload(props) {
                 type="button"
                 className="btn btn-outline-light"
                 onClick={clearForm}
-                // disabled={uploading}
+                disabled={uploading}
               >
                 Clear Form
               </button>
