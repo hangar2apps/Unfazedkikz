@@ -7,7 +7,6 @@ function extractShoeInfo(filePath) {
     const brand = parts[parts.length - 3].replace(/New Balance(?:New Balance)?/, 'New Balance');
     let line = parts[parts.length - 2];
     // Specific handling for the "9060" case
-    console.log('line', line);
     line = line === "90609060" ? "9060" : line;
     const fileName = path.basename(filePath, path.extname(filePath));
     const model = fileName.replace(/\.(jpg|jpeg|png|gif)$/i, "").trim();
@@ -86,33 +85,47 @@ async function uploadImages(folderPath, websiteUrl) {
         await page.type('#shoeLine', line);
         await page.type('#shoeModel', model);
 
+   
+
         // Set the file input value
         const inputElement = await page.$('input[type="file"]');
         await inputElement.uploadFile(filePath);
 
-        await page.waitForFunction(() => {
+
+
+        let response = await page.waitForFunction(() => {
             const submitButton = document.querySelector('button[type="submit"]');
             return submitButton && !submitButton.disabled;
         }, { timeout: 5000 });
 
-        await page.evaluate(() => {
-            const submitButton = document.querySelector('button[type="submit"]');
-            if (submitButton) submitButton.click();
-        });
+        let isButtonEnabled = await response.jsonValue();
+        console.log('isButtonEnabled', isButtonEnabled);
+
+        if (isButtonEnabled) {
+            await page.evaluate(() => {
+                const submitButton = document.querySelector('button[type="submit"]');
+                if (submitButton) submitButton.click();
+            });
+        }
+        else {
+            console.log('Button is disabled');
+            await browser.close();
+        }
+
 
         console.log(`Uploaded: ${file}`);
 
         await delay(3000);
       } catch (uploadError) {
         console.error(`Error uploading ${file}:`, uploadError);
-        await browser.close();
+        // await browser.close();
       }
     }
   } catch (error) {
     console.error("An error occurred:", error);
-    await browser.close();
+    // await browser.close();
   } finally {
-    await browser.close();
+    // await browser.close();
   }
 }
 
