@@ -22,7 +22,6 @@ function Footer() {
         }),
       });
 
-      console.log('response', response);
       if (!response.ok) {
         throw new Error('Failed to send email');
       }
@@ -35,7 +34,6 @@ function Footer() {
       });
     }
     catch (error) {
-      console.error('Error sending email:', error);
       Swal.fire({
         title: 'Error!',
         text: 'Something went wrong. Please try again later.',

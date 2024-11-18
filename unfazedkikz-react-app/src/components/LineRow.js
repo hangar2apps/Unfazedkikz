@@ -44,6 +44,40 @@ function LineRow({ line, shoes }) {
       confirmButtonText: "Get Info!",
     });
     console.log("email", email);
+    //need to add logic to send email 
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          message: `Customer interested in ${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      Swal.fire({
+        title: 'Thanks for your interest!',
+        text: 'We will get back to you soon.',
+        icon: 'success',
+        confirmButtonText: 'Close',
+      });
+    }
+    catch (error) {
+      console.error('Error sending email:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'Close',
+      });
+    }
+  
   };
 
   return (
