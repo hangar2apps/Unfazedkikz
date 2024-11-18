@@ -118,28 +118,29 @@ function Upload(props) {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
+          <div>Please check that spelling is correct and matches what is on the website. This determines where the product will be displayed. You can enter new brands and lines here as well!</div>
           <form onSubmit={handleSubmit} className="p-4 custom-form">
             <div className="mb-3">
               <label htmlFor="shoeBrand" className="form-label">
                 Shoe Brand
               </label>
-              <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
+              {/* <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
                 {props && props.shoeBrands && props.shoeBrands.length > 0 && props.shoeBrands.map((shoeBrand) => (
                   <option key={shoeBrand} value={shoeBrand}>
                     {shoeBrand}
                   </option>
                 ))}
-              </select>
-              {/* <input
+              </select> */}
+              <input
                 id="shoeBrand"
                 type="text"
                 className="form-control custom-input"
                 value={shoeBrand}
                 onChange={handleShoeBrandChange}
                 required
-                // disabled={uploading}
+                disabled={uploading}
                 placeholder="Enter shoe brand"
-              /> */}
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="shoeLine" className="form-label">
