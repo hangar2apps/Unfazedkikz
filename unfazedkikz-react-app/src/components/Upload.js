@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from 'sweetalert2'
 import "./CustomStyles.css";
 
 function Upload(props) {
@@ -8,7 +9,6 @@ function Upload(props) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
 
   //use to delete shoes for testing
@@ -31,16 +31,10 @@ function Upload(props) {
       console.log("Shoe deleted successfully");
     };
 
-    deleteShoes();
+    // deleteShoes();
   }, [props])
 
-  useEffect(() => {
-    console.log('uploadedImageUrl', uploadedImageUrl);
-  }, [uploadedImageUrl])
-
-
   const handleShoeBrandChange = (e) => {
-    console.log("handleShoeBrandChange", e);
     setShoeBrand(e.target.value);
   };
 
@@ -84,25 +78,24 @@ function Upload(props) {
           imageData: previewUrl,
         }),
       });
-      console.log("response", response);
 
       if (response.status !== 200) {
         throw new Error(`Failed to upload image: ${shoeBrand}, ${shoeLine}, ${shoeModel}`);
       }
-
       const data = await response.json();
-
-      console.log('data', data);
-
-      setUploadedImageUrl(data.url);
-
-
-      new Promise(resolve => setTimeout(resolve, 10000));
-      // alert("Image uploaded successfully!");
+      Swal.fire({
+        icon: 'success',
+        title: `Upload successful!`,
+        text: ``,
+      });
       clearForm();
     } catch (error) {
       console.error("Error uploading image:", error);
-      // alert("Hmm, something went wrong. Make sure this image is not already uploaded.");
+      Swal.fire({
+        icon: 'error',
+        title: `Upload failed!`,
+        text: ``,
+      });
     } finally {
       setUploading(false);
     }
@@ -114,7 +107,6 @@ function Upload(props) {
     setShoeModel("");
     setFile(null);
     setPreviewUrl(null);
-    setUploadedImageUrl(null);
     // Reset the file input
     const fileInput = document.getElementById("image");
     if (fileInput) {
@@ -131,14 +123,14 @@ function Upload(props) {
               <label htmlFor="shoeBrand" className="form-label">
                 Shoe Brand
               </label>
-              {/* <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
+              <select className="form-control custom-input" value={shoeBrand} onChange={handleShoeBrandChange} required disabled={uploading} placeholder="Enter shoe brand">
                 {props && props.shoeBrands && props.shoeBrands.length > 0 && props.shoeBrands.map((shoeBrand) => (
                   <option key={shoeBrand} value={shoeBrand}>
                     {shoeBrand}
                   </option>
                 ))}
-              </select> */}
-              <input
+              </select>
+              {/* <input
                 id="shoeBrand"
                 type="text"
                 className="form-control custom-input"
@@ -147,7 +139,7 @@ function Upload(props) {
                 required
                 // disabled={uploading}
                 placeholder="Enter shoe brand"
-              />
+              /> */}
             </div>
             <div className="mb-3">
               <label htmlFor="shoeLine" className="form-label">
@@ -160,7 +152,7 @@ function Upload(props) {
                 value={shoeLine}
                 onChange={handleShoeLineChange}
                 required
-                // disabled={uploading}
+                disabled={uploading}
                 placeholder="Enter shoe line"
               />
             </div>
@@ -175,7 +167,7 @@ function Upload(props) {
                 value={shoeModel}
                 onChange={handleShoeModelChange}
                 required
-                // disabled={uploading}
+                disabled={uploading}
                 placeholder="Enter shoe model"
               />
             </div>
@@ -190,7 +182,7 @@ function Upload(props) {
                 accept="image/*"
                 onChange={handleFileChange}
                 required
-                // disabled={uploading}
+                disabled={uploading}
               />
             </div>
             {previewUrl && (
@@ -206,17 +198,11 @@ function Upload(props) {
             )}
             <div className="d-flex justify-content-between align-items-center">
               <button
-                id="uploadButton"
                 type="submit"
                 className="btn custom-btn text-white"
-              >Upload Shoe
-              </button>
-              {/* <button
-                type="submit"
-                className="btn custom-btn text-white"
-                // disabled={
-                //   !shoeBrand || !shoeLine || !shoeModel || !file || uploading
-                // }
+                disabled={
+                  !shoeBrand || !shoeLine || !shoeModel || !file || uploading
+                }
               >
                 {uploading ? (
                   <>
@@ -226,22 +212,17 @@ function Upload(props) {
                 ) : (
                   "Upload Shoe"
                 )}{" "}
-              </button> */}
+              </button>
               <button
                 id="clearButton"
                 type="button"
                 className="btn btn-outline-light"
                 onClick={clearForm}
-                // disabled={uploading}
+                disabled={uploading}
               >
                 Clear Form
               </button>
             </div>
-            {uploadedImageUrl ? (
-              <div className="mt-3 text-center">
-                <p className="upload-success text-success">Image uploaded successfully!</p>
-              </div>
-            ) : null}
           </form>
         </div>
       </div>

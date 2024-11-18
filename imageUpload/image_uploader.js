@@ -83,14 +83,9 @@ async function uploadImages(folderPath, websiteUrl) {
         // Click the submit button
         await page.click('button[type="submit"]');
 
-        let isUploadSuccess = await page.waitForSelector('.upload-success', { visible: true, timeout: 300000 });
-
-        console.log('isUploadSuccess', isUploadSuccess);
-
-        new Promise(resolve => setTimeout(resolve, 10000));
-
-
         console.log(`Uploaded: ${file}`);
+
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         await browser.close();
         ({ browser, page } = await resetBrowser(websiteUrl));
@@ -108,7 +103,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/New Balance/990";
+const folderPath = "/Users/bryanrigsby/Desktop/New Balance/1906";
 const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
 
 uploadImages(folderPath, websiteUrl);

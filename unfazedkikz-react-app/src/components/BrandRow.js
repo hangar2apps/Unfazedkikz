@@ -22,7 +22,6 @@ function BrandRow({ brand, shoes }) {
       inputPlaceholder: 'Enter your email',
       html: `<img src="${shoe.URL}" alt="${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}" class="img-fluid rounded" />`,
 
-
       // trying to style the confirm button
       confirmButtonText: 'Get Info!',
     });
