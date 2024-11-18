@@ -92,8 +92,8 @@ function LineRow({ line, shoes }) {
       <div className="position-relative">
         <div className="scroll-container" ref={scrollContainerRef}>
           <div className="d-flex">
-            {shoes.map((shoe) => (
-              {loading ? (
+            {shoes.map((shoe) => {
+              loading ? (
                 <i className="fas fa-spinner fa-spin me-2"></i>
                ) :(
                 <div
@@ -122,9 +122,9 @@ function LineRow({ line, shoes }) {
                   <h5 className="card-title">{`${shoe.ShoeModel}`}</h5>
                 </div>
               </div>
-               )}
+               }
               
-            ))}
+            })}
           </div>
         </div>
         {canScroll && (
