@@ -9,8 +9,7 @@ import Swal from "sweetalert2";
 function LineRow({ line, shoes }) {
   const scrollContainerRef = useRef(null);
   const [canScroll, setCanScroll] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  
 
   useEffect(() => {
     const checkScroll = () => {
@@ -38,7 +37,6 @@ function LineRow({ line, shoes }) {
   };
 
   const handleShoeClick = async (shoe) => {
-    setLoading(true);
     const { value: email } = await Swal.fire({
       title: `${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
       input: "email",
@@ -80,9 +78,6 @@ function LineRow({ line, shoes }) {
         confirmButtonText: 'Close',
       });
     }
-    finally {
-      setLoading(false);
-    }
   
   };
 
@@ -92,11 +87,8 @@ function LineRow({ line, shoes }) {
       <div className="position-relative">
         <div className="scroll-container" ref={scrollContainerRef}>
           <div className="d-flex">
-            {shoes.map((shoe) => {
-              loading ? (
-                <i className="fas fa-spinner fa-spin me-2"></i>
-               ) :(
-                <div
+            {shoes.map((shoe) => (
+              <div
                 key={shoe.ID}
                 className="card shoe-card me-3"
                 style={{ minWidth: "200px", width: "200px" }}
@@ -122,9 +114,7 @@ function LineRow({ line, shoes }) {
                   <h5 className="card-title">{`${shoe.ShoeModel}`}</h5>
                 </div>
               </div>
-               }
-              
-            })}
+            ))}
           </div>
         </div>
         {canScroll && (
