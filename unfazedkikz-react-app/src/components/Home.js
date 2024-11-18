@@ -5,15 +5,14 @@ import FeaturedKicks from "./FeaturedKicks";
 // import ShoeOfWeek from "./ShoeOfWeek";
 import Footer from "./Footer";
 
-function Home(props) {
-
+function Home({groupedShoes}) {
   return (
     <div>
       <Navbar />
       <main>
         <Hero />
         {/* <ShoeOfWeek /> */}
-        <FeaturedKicks shoeBrands={props.shoeBrands} shoes={props.shoes} />
+        <FeaturedKicks groupedShoes={groupedShoes} />
       </main>
       <Footer />
     </div>

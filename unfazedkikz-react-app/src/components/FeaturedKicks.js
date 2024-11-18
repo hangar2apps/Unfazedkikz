@@ -1,29 +1,13 @@
-import React from 'react';
-import BrandRow from './BrandRow';
+import React from "react";
+import BrandRow from "./BrandRow";
 
-function FeaturedKicks({shoeBrands, shoes}) {
-
-  let brands = shoeBrands ? JSON.parse(JSON.stringify(shoeBrands)) : [];
-  let brandAndShoesArray = [];
-  for (let i = 0; i < brands.length; i++) {
-    const brand = brands[i];
-    brandAndShoesArray.push({
-      brand: brand,
-      shoes: shoes.filter((shoe) => {
-        return shoe.ShoeBrand === brand;
-      }),
-    });
-  }
-
-  console.log('brandAndShoesArray', brandAndShoesArray);
-
+function FeaturedKicks({ groupedShoes }) {
   return (
-    <section id='top' className="featured-kicks py-5">
+    <section id="top" className="featured-kicks py-5">
       <div className="container">
-        {brandAndShoesArray.map((obj, index) => (
-            <BrandRow key={`${index}${new Date().getTime()}`} brand={obj.brand} shoes={obj.shoes} brandUrl={obj.brandUrl} />
-          ))
-        }
+        {Object.entries(groupedShoes).map(([brand, lines]) => (
+          <BrandRow key={brand} brand={brand} lines={lines} />
+        ))}
       </div>
     </section>
   );

@@ -6,19 +6,35 @@ import './App.css';
 import Home from './components/Home';
 import Upload from './components/Upload';
 
+const groupShoesByBrandAndLine = (shoes) => {
+  return shoes.reduce((acc, shoe) => {
+    if (!acc[shoe.ShoeBrand]) {
+      acc[shoe.ShoeBrand] = {};
+    }
+    if (!acc[shoe.ShoeBrand][shoe.ShoeLine]) {
+      acc[shoe.ShoeBrand][shoe.ShoeLine] = [];
+    }
+    acc[shoe.ShoeBrand][shoe.ShoeLine].push(shoe);
+    return acc;
+  }, {});
+};
+
 function App() {
 
   const [shoeBrands, setShoeBrands] = useState([]);
   const [shoes, setShoes] = useState([]);
 
+  const [groupedShoes, setGroupedShoes] = useState({});
+
+
   useEffect(() => {
     const getShoes = async () => {
-      console.log("getShoes");
+      // console.log("getShoes");
       try {
         const response = await fetch("/api/getShoes");
-        console.log("response", response);
+        // console.log("response", response);
         const data = await response.json();
-        console.log("data", data);
+        // console.log("data", data);
         setShoeBrands(data.shoeBrands);
         setShoes(data.shoes);
       } catch (error) {
@@ -97,6 +113,14 @@ function App() {
     // ]);
   }, []);
 
+  useEffect(() => {
+    setGroupedShoes(groupShoesByBrandAndLine(shoes));
+  }, [shoes]);
+
+  // useEffect(() => {
+  //   console.log('groupedShoes', groupedShoes);
+  // }, [groupedShoes]);
+
   
   
 
@@ -104,7 +128,7 @@ function App() {
     <Router>
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home shoeBrands={shoeBrands} shoes={shoes} />} />
+        <Route path="/" element={<Home groupedShoes={groupedShoes} />} />
         <Route path="/upload" element={<Upload shoeBrands={shoeBrands} />} />
       </Routes>
     </div>
