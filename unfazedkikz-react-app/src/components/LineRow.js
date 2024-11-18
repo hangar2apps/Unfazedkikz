@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -8,6 +8,21 @@ import Swal from "sweetalert2";
 
 function LineRow({ line, shoes }) {
   const scrollContainerRef = useRef(null);
+  const [canScroll, setCanScroll] = useState(false);
+
+  useEffect(() => {
+    const checkScroll = () => {
+        const container = scrollContainerRef.current;
+        if (container) {
+            setCanScroll(container.scrollWidth > container.clientWidth);
+        }
+    };
+
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+
+    return () => window.removeEventListener('resize', checkScroll);
+  }, [shoes]);
 
   const scroll = (direction) => {
     const container = scrollContainerRef.current;
@@ -67,18 +82,16 @@ function LineRow({ line, shoes }) {
             ))}
           </div>
         </div>
-        <button
-          className="btn btn-dark scroll-button left"
-          onClick={() => scroll(-1)}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-        <button
-          className="btn btn-dark scroll-button right"
-          onClick={() => scroll(1)}
-        >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </button>
+        {canScroll && (
+            <>
+              <button className="btn btn-dark scroll-button left" onClick={() => scroll(-1)}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <button className="btn btn-dark scroll-button right" onClick={() => scroll(1)}>
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </>
+          )}
       </div>
     </div>
   );
