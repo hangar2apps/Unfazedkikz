@@ -1,29 +1,22 @@
 # Unfazedkikz
 Tina Jackson shoe site
 
+Business Name: Unfazed Kikz LLC
+
+Business Website: unfazed-kikz.com
+
+Business Email: unfazedkikz@gmail.com
+
+Business Phone: 405-202-3292
+
+Social Media:
+  - Instagram - https://www.instagram.com/unfazedkikz1/
+  - X - https://x.com/unfazedkikz
+  - Facebook - https://www.facebook.com/tnorthroup
+  - Tiktok - https://www.tiktok.com/@unfazedkikz
+
+Business Description: Shoe drop shipping site. Sales made through email.
+
+
 motto - 'We don't do release dates'
 
-https://sneakercycle.com/?srsltid=AfmBOooD5eLoAqVEz7IXcpHCPQeBE1SS575yownd5NR9ds-ar0lw76wf
-
-https://www.dsw.com/
-
-https://sneakerpolitics.com/
-
-What we like about these websites
-
-How they have their products categorized
-The ease of finding these products
-
-What we would like in look for a website:
-A little edgy
-A little street because it’s sneakers
-A little urban
-A little elegant
-
-We would like it simple to reach us for inquiry’s
-We would like the shoes to be easy to search for ie: pink Jordan one…an all pink Jordan ones come up like on GOAT OR STOCK X
-
-
-shoe of the week
-need business facebook account
-purchasing through email
