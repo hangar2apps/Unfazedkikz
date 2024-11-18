@@ -24,7 +24,7 @@ export default async (req, context) => {
       }
 
       const shoesStore = getStore({ name: 'shoes', siteID: siteID, token: token });
-      await shoesStore.delete('New Balance/9060/Rain Loud Grey');
+      await shoesStore.delete("New Balance/990/Levi's Blue");
 
 
 
