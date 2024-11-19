@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Upload from './components/Upload';
 
 const groupShoesByBrandAndLine = (shoes) => {
+  if(!shoes || shoes.length < 1) return null;
   return shoes.reduce((acc, shoe) => {
     if (!acc[shoe.ShoeBrand]) {
       acc[shoe.ShoeBrand] = {};

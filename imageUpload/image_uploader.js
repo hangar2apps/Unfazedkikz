@@ -103,7 +103,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/New Balance/990";
-const websiteUrl = "https://leafy-stardust-d259d9.netlify.app/upload";
+const folderPath = "/Users/bryanrigsby/Desktop/uploaded/New Balance/990";
+const websiteUrl = "https://unfazedkikz.com/upload";
 
 uploadImages(folderPath, websiteUrl);

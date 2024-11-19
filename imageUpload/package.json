@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "puppeteer": "^23.8.0"
+    "netlify": "^13.1.21",
+    "puppeteer": "^23.8.0",
+    "@netlify/blobs": "^8.1.0"
   }
 }
