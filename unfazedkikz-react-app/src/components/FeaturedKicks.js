@@ -6,7 +6,7 @@ function FeaturedKicks({ groupedShoes }) {
   return (
     <section id="top" className="featured-kicks py-5">
       <div className="container">
-        {Object.entries(groupedShoes).map(([brand, lines]) => (
+        {groupedShoes && JSON.stringify(groupedShoes) !== '{}' && Object.entries(groupedShoes).map(([brand, lines]) => (
           <BrandRow key={brand} brand={brand} lines={lines} />
         ))}
       </div>
