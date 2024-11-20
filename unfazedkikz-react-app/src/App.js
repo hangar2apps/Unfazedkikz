@@ -30,12 +30,12 @@ function App() {
 
   useEffect(() => {
     const getShoes = async () => {
-      // console.log("getShoes");
+      console.log("getShoes");
       try {
         const response = await fetch("/api/getShoes");
-        // console.log("response", response);
+        console.log("response", response);
         const data = await response.json();
-        // console.log("data", data);
+        console.log("data", data);
         setShoeBrands(data.shoeBrands);
         setShoes(data.shoes);
       } catch (error) {
