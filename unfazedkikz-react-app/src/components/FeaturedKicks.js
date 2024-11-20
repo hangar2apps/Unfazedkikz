@@ -2,6 +2,7 @@ import React from "react";
 import BrandRow from "./BrandRow";
 
 function FeaturedKicks({ groupedShoes }) {
+  console.log('groupedShoes', groupedShoes)
   return (
     <section id="top" className="featured-kicks py-5">
       <div className="container">

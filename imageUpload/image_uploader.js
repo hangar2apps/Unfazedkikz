@@ -103,7 +103,7 @@ async function uploadImages(folderPath, websiteUrl) {
 }
 
 // Usage
-const folderPath = "/Users/bryanrigsby/Desktop/uploaded/New Balance/990";
+const folderPath = "/Users/bryanrigsby/Desktop/uploaded/Asics/Gel Kahana";
 const websiteUrl = "https://unfazed-kikz.com/upload";
 
 uploadImages(folderPath, websiteUrl);
