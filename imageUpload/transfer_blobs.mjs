@@ -8,6 +8,15 @@ async function transferBlobs(sourceProjectId, destProjectId, sourceToken, destTo
     const { blobs } = await shoes.list();
     console.log('blobs', blobs);
 
+    let blobArray = [];
+    if(blobs && blobs.length > 0) {
+      for (const blob of blobs) {
+        
+      }
+    }
+
+
+
     // for (const blob of blobs) {
     //   // Download blob from source project
     //   const content = await sourceClient.getSiteBlob({

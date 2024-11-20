@@ -104,6 +104,6 @@ async function uploadImages(folderPath, websiteUrl) {
 
 // Usage
 const folderPath = "/Users/bryanrigsby/Desktop/uploaded/New Balance/990";
-const websiteUrl = "https://unfazedkikz.com/upload";
+const websiteUrl = "https://unfazed-kikz.com/upload";
 
 uploadImages(folderPath, websiteUrl);
