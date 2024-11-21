@@ -37,48 +37,48 @@ function LineRow({ line, shoes }) {
   };
 
   const handleShoeClick = async (shoe) => {
-    const { value: email } = await Swal.fire({
-      title: `${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
-      input: "email",
-      inputPlaceholder: "Enter your email",
-      html: `<img src="${shoe.URL}" alt="${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}" class="img-fluid rounded" />`,
-      confirmButtonText: "Get Info!",
-    });
-    console.log("email", email);
-    //need to add logic to send email 
-    try {
-      const response = await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const { value: email } = await Swal.fire({
+        title: `${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
+        input: "email",
+        inputPlaceholder: "Enter your email",
+        html: `<img src="${shoe.URL}" alt="${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}" class="img-fluid rounded" />`,
+        confirmButtonText: "Get Info!",
+        preConfirm: async (email) => {
+          if (!email) {
+            Swal.showValidationMessage('Please enter a valid email address');
+            return;
+          }
+          try {
+            const response = await fetch('/api/sendEmail', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: email,
+                message: `Customer interested in ${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
+              }),
+            });
+    
+            if (!response.ok) {
+              throw new Error('Failed to send email');
+            }
+            return response; // successful response
+          } catch (error) {
+            Swal.showValidationMessage('Failed to send email. Please try again.');
+            throw error;
+          }
         },
-        body: JSON.stringify({
-          email: email,
-          message: `Customer interested in ${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`,
-        }),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to send email');
+    
+      if (email) {
+        Swal.fire({
+          title: 'Thanks for your interest!',
+          text: 'We will get back to you soon.',
+          icon: 'success',
+          confirmButtonText: 'Close',
+        });
       }
-
-      Swal.fire({
-        title: 'Thanks for your interest!',
-        text: 'We will get back to you soon.',
-        icon: 'success',
-        confirmButtonText: 'Close',
-      });
-    }
-    catch (error) {
-      console.error('Error sending email:', error);
-      Swal.fire({
-        title: 'Error!',
-        text: 'Something went wrong. Please try again later.',
-        icon: 'error',
-        confirmButtonText: 'Close',
-      });
-    }
-  
   };
 
   return (
