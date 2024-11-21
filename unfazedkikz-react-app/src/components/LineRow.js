@@ -43,6 +43,7 @@ function LineRow({ line, shoes }) {
         inputPlaceholder: "Enter your email",
         html: `<img src="${shoe.URL}" alt="${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}" class="img-fluid rounded" />`,
         confirmButtonText: "Get Info!",
+        showLoaderOnConfirm: true,
         preConfirm: async (email) => {
           if (!email) {
             Swal.showValidationMessage('Please enter a valid email address');
@@ -69,6 +70,7 @@ function LineRow({ line, shoes }) {
             throw error;
           }
         },
+        allowOutsideClick: () => !Swal.isLoading(),
       });
     
       if (email) {
