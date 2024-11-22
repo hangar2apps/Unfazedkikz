@@ -13,7 +13,6 @@ function Upload(props) {
 
   //use to delete shoes for testing
   useEffect(() => {
-    console.log('in Upload.js useEffect', props);
     const deleteShoes = async () => {
       const response = await fetch("/api/delete", {
         method: "POST",
@@ -22,13 +21,10 @@ function Upload(props) {
         },
         body: JSON.stringify({}),
       });
-      console.log("response", response);
 
       if (!response.ok) {
         throw new Error("Failed to delete shoe");
       }
-
-      console.log("Shoe deleted successfully");
     };
 
     // deleteShoes();

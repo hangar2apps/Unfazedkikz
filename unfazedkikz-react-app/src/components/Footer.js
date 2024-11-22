@@ -8,7 +8,6 @@ function Footer() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    console.log('email', email);
     
     try {
       const response = await fetch('/api/sendEmail', {

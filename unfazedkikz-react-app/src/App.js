@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import Home from './components/Home';
 import Upload from './components/Upload';
+import Swal from 'sweetalert2'
 
 const groupShoesByBrandAndLine = (shoes) => {
   if(!shoes || shoes.length < 1) return null;
@@ -21,7 +22,7 @@ const groupShoesByBrandAndLine = (shoes) => {
 };
 
 function App() {
-
+  const [loading, setLoading] = useState(false);
   const [shoeBrands, setShoeBrands] = useState([]);
   const [shoes, setShoes] = useState([]);
 
@@ -30,14 +31,18 @@ function App() {
 
   useEffect(() => {
     const getShoes = async () => {
-      console.log("getShoes");
+      setLoading(true);
       try {
         const response = await fetch("/api/getShoes");
-        console.log("response", response);
         const data = await response.json();
-        console.log("data", data);
-        setShoeBrands(data.shoeBrands);
-        setShoes(data.shoes);
+        if(data.shoeBrands.length === 0) {
+          console.log('no shoes found');
+        }
+        else{
+          setShoeBrands(data.shoeBrands);
+          setShoes(data.shoes);
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching shoes:", error);
       }
@@ -118,18 +123,11 @@ function App() {
     setGroupedShoes(groupShoesByBrandAndLine(shoes));
   }, [shoes]);
 
-  // useEffect(() => {
-  //   console.log('groupedShoes', groupedShoes);
-  // }, [groupedShoes]);
-
-  
-  
-
   return (
     <Router>
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home groupedShoes={groupedShoes} />} />
+        <Route path="/" element={<Home groupedShoes={groupedShoes} loading={loading} />} />
         <Route path="/upload" element={<Upload shoeBrands={shoeBrands} />} />
       </Routes>
     </div>
