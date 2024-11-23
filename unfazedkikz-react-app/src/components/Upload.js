@@ -67,9 +67,9 @@ function Upload(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          shoeBrand,
-          shoeLine,
-          shoeModel,
+          shoeBrand: shoeBrand.trim(),
+          shoeLine: shoeLine.trim(),
+          shoeModel: shoeModel.trim(),
           imageData: previewUrl,
         }),
       });
