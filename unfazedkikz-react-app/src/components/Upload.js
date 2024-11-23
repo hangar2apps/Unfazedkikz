@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import "./CustomStyles.css";
 
 function Upload(props) {
@@ -9,7 +9,6 @@ function Upload(props) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
-
 
   //use to delete shoes for testing
   useEffect(() => {
@@ -27,8 +26,8 @@ function Upload(props) {
       }
     };
 
-    // deleteShoes();
-  }, [props])
+    deleteShoes();
+  }, [props]);
 
   const handleShoeBrandChange = (e) => {
     setShoeBrand(e.target.value);
@@ -76,11 +75,13 @@ function Upload(props) {
       });
 
       if (response.status !== 200) {
-        throw new Error(`Failed to upload image: ${shoeBrand}, ${shoeLine}, ${shoeModel}`);
+        throw new Error(
+          `Failed to upload image: ${shoeBrand}, ${shoeLine}, ${shoeModel}`
+        );
       }
       const data = await response.json();
       Swal.fire({
-        icon: 'success',
+        icon: "success",
         title: `Upload successful!`,
         text: ``,
       });
@@ -88,7 +89,7 @@ function Upload(props) {
     } catch (error) {
       console.error("Error uploading image:", error);
       Swal.fire({
-        icon: 'error',
+        icon: "error",
         title: `Upload failed!`,
         text: ``,
       });
@@ -114,7 +115,24 @@ function Upload(props) {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div>Please check that spelling is correct and matches what is on the website. This determines where the product will be displayed. You can enter new brands and lines here as well!</div>
+          <div>
+            Please check that spelling is correct and matches what is on the
+            website. This determines where the product will be displayed. You
+            can enter new brands and lines here as well!
+          </div>
+          <div>-- Example --</div>
+          <div>
+            Shoe Brand: Asics - if this brand doesn't exist then this should
+            make a new section
+          </div>
+          <div>
+            Shoe Line: Gel Kayano 14 - if this line doesn't exist then this
+            should make a new section within the above brand
+          </div>
+          <div>
+            Shoe Model: Silver Black Pink - this should be displayed in the card
+            below the shoe image
+          </div>
           <form onSubmit={handleSubmit} className="p-4 custom-form">
             <div className="mb-3">
               <label htmlFor="shoeBrand" className="form-label">
