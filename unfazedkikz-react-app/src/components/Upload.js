@@ -26,7 +26,7 @@ function Upload(props) {
       }
     };
 
-    deleteShoes();
+    // deleteShoes();
   }, [props]);
 
   const handleShoeBrandChange = (e) => {
