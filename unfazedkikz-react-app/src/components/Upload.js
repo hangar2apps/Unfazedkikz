@@ -115,21 +115,19 @@ function Upload(props) {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div>
-            Please check that spelling is correct and matches what is on the
-            website. This determines where the product will be displayed. You
-            can enter new brands and lines here as well!
-          </div>
+          <div className="mb-1">-- Hints --</div>
+          <div className="mb-1">Check that spelling is correct and matches what is on the website.</div> 
+          <div className="mb-1">Make sure there are no spaces before or after the file name.</div>
           <div>-- Example --</div>
-          <div>
+          <div className="mb-1">
             Shoe Brand: Asics - if this brand doesn't exist then this should
             make a new section
           </div>
-          <div>
+          <div className="mb-1">
             Shoe Line: Gel Kayano 14 - if this line doesn't exist then this
             should make a new section within the above brand
           </div>
-          <div>
+          <div className="mb-1">
             Shoe Model: Silver Black Pink - this should be displayed in the card
             below the shoe image
           </div>
