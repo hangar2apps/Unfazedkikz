@@ -24,7 +24,7 @@ function Upload(props) {
           }
           else{
             setAllShoes(data.shoes);
-            setShoeToDelete(data.shoes[0].ShoeBrand + ' ' + data.shoes[0].ShoeLine + ' ' + data.shoes[0].ShoeModel);
+            setShoeToDelete(data.shoes[0].ShoeBrand + '/' + data.shoes[0].ShoeLine + '/' + data.shoes[0].ShoeModel);
             setLoading(false);
           }
         } catch (error) {
@@ -379,7 +379,7 @@ function Upload(props) {
               <label htmlFor="shoeBrand" className="form-label">
                 Shoe To Remove
               </label>
-              <select className="form-control custom-input" value={shoeToDelete} onChange={(e) => setShoeToDelete(e.target.value)} required disabled={uploading} placeholder="Select shoe to remove">
+              <select className="form-control custom-input" value={shoeToDelete} onChange={(e) => console.log('shoe to delete', e.target.value)} required disabled={uploading} placeholder="Select shoe to remove">
                 {allShoes && allShoes.length > 0 && allShoes.map((shoe) => (
                   <option key={shoe.ID} value={`${shoe.ShoeBrand}/${shoe.ShoeLine}/${shoe.ShoeModel}`}>
                     {`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
