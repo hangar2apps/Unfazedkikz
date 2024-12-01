@@ -213,8 +213,7 @@ function Upload(props) {
         text: ``,
       });
     } finally {
-      getShoes();
-      setUploading(false);
+      window.location.reload();
     }
   };
 
