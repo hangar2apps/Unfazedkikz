@@ -89,7 +89,7 @@ function Navbar() {
               outline: "none",
             }}
           >
-            <i className="fab fa-question fa-xl" style={{ color: "white" }}></i>
+            <i className="fab fa-question fa-xl" style={{ color: "white", paddingRight: "10px" }}></i>
           </button>
         </div>
         <div className="collapse navbar-collapse" id="navbarNav">
