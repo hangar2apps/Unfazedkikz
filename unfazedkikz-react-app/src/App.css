@@ -85,3 +85,10 @@ body {
 .shoe-card:hover {
   transform: scale(1.05);
 }
+
+.question-btn:focus,
+.question-btn:active,
+.question-btn:hover {
+  outline: none !important;
+  box-shadow: none !important;
+}

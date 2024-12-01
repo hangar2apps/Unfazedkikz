@@ -58,7 +58,7 @@ function Footer() {
               <li><a href="#" className="text-light">FAQ</a></li>
             </ul>
           </div> */}
-          <div className="col-xl-4 mb-4 mt-xl-4">
+          <div className="col-12 mb-4 mt-xl-4">
             <ul className="list-unstyled  d-flex justify-content-around">
               <li className="me-3"><a href="https://www.instagram.com/unfazedkikz1/" className="text-light"><i className="fab fa-instagram fa-xl"></i></a></li>
               <li className="me-3"><a href="https://x.com/unfazedkikz" className="text-light"><i className="fab fa-x-twitter fa-xl"></i></a></li>
@@ -66,21 +66,6 @@ function Footer() {
               <li className="me-3"><a href="https://www.tiktok.com/@unfazedkikz" className="text-light"><i className="fab fa-tiktok fa-xl"></i></a></li>
             </ul>
           </div>
-          <div className="col-md-3 col-xl-4"></div>
-          <div className="col-md-6 col-xl-4 my-4 mt-xl-0">
-            <p>Stay updated with the latest drops and exclusive offers.</p>
-              <div className="input-group">
-                <input type="email" className="form-control" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <button className="btn btn-primary" type="submit" disabled={loading} onClick={handleSubmit}>
-                  {loading ? (
-                   <i className="fas fa-spinner fa-spin me-2"></i>
-                  ) :(
-                  'Subscribe'
-                  )}
-                </button>
-              </div>
-          </div>
-          <div className="col-md-3"></div>
         </div>
         <hr className="mt-4 mb-3" />
         <p className="text-center">© {new Date().getFullYear()} Unfazed Kikz. All rights reserved.</p>

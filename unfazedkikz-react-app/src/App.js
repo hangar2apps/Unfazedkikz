@@ -25,7 +25,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [shoeBrands, setShoeBrands] = useState([]);
   const [shoes, setShoes] = useState([]);
-
   const [groupedShoes, setGroupedShoes] = useState({});
 
 
