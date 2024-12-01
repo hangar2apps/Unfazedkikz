@@ -371,7 +371,7 @@ function Upload(props) {
               <select
                 className="form-control custom-input"
                 value={shoeToDelete}
-                onChange={(e) => console.log("shoe to delete", e.target.value)}
+                onChange={(e) => setShoeToDelete(e.target.value)}
                 required
                 disabled={uploading}
                 placeholder="Select shoe to remove"
