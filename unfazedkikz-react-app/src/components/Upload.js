@@ -381,7 +381,7 @@ function Upload(props) {
               </label>
               <select className="form-control custom-input" value={shoeToDelete} onChange={(e) => setShoeToDelete(e.target.value)} required disabled={uploading} placeholder="Select shoe to remove">
                 {allShoes && allShoes.length > 0 && allShoes.map((shoe) => (
-                  <option key={shoe.ID} value={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}>
+                  <option key={shoe.ID} value={`${shoe.ShoeBrand}/${shoe.ShoeLine}/${shoe.ShoeModel}`}>
                     {`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
                   </option>
                 ))}
