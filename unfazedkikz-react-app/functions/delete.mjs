@@ -1,7 +1,8 @@
 import { getStore } from "@netlify/blobs";
 
 export default async (req, context) => {
-  console.log('delete request', req.json());
+  let shoeToDelete = await req.json();
+  console.log('delete request', shoeToDelete);
   // Only allow POST requests
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
