@@ -38,7 +38,9 @@ function Upload(props) {
   };
 
   useEffect(() => {
+    setLoading(true);
     getShoes();
+    setLoading(false);
 
     // for testing
     // setAllShoes([
@@ -195,19 +197,19 @@ function Upload(props) {
       });
 
       if (response.status !== 200) {
-        throw new Error(`Failed to remove: ${shoeToDelete}`);
+        throw new Error(`Failed to remove shoe`);
       }
 
       Swal.fire({
         icon: "success",
-        title: `${shoeToDelete} removed!`,
+        title: `Shoe removed!`,
         text: ``,
       });
     } catch (error) {
-      console.error(`Error removing ${shoeToDelete}`, error);
+      console.error(`Error removing shoe`, error);
       Swal.fire({
         icon: "error",
-        title: `Error removing ${shoeToDelete}`,
+        title: `Error removing shoe`,
         text: ``,
       });
     } finally {

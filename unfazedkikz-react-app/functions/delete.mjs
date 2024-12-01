@@ -12,7 +12,7 @@ export default async (req, context) => {
   }
   try {
 
-    let shoeToDelete = await req.json();
+    let {shoeToDelete} = await req.json();
     console.log('delete request', shoeToDelete);
 
     if (!shoeToDelete) {
@@ -47,7 +47,7 @@ export default async (req, context) => {
         owner,
         repo,
         path: imagePath,
-        message: `Delete shoe image: ${shoeToDelete}`,
+        message: `Remove shoe image: ${shoeToDelete}`,
         sha: fileDetails.sha,
         branch: targetBranch
       });
@@ -81,7 +81,7 @@ export default async (req, context) => {
     }
 
     console.error("GitHub API Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to delete shoe" }), {
+    return new Response(JSON.stringify({ error: "Failed to remove shoe" }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });
