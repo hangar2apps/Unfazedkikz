@@ -31,7 +31,7 @@ export default async (req, context) => {
     const owner = process.env.GITHUB_OWNER;
     const repo = process.env.GITHUB_REPO;
     const targetBranch = 'main';
-    const imagePath = `shoes/${shoeBrand}/${shoeLine}/${shoeModel}.jpg`;
+    const imagePath = `shoes/${shoeToDelete}.jpg`;
 
     try {
       // Get the file's current details
