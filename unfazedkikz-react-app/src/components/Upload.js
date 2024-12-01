@@ -13,113 +13,100 @@ function Upload(props) {
   const [allShoes, setAllShoes] = useState([]);
   const [shoeToDelete, setShoeToDelete] = useState("");
 
-        const getShoes = async () => {
-        setLoading(true);
-        try {
-          const response = await fetch("/api/getShoes");
-          const data = await response.json();
-          console.log('data in Upload.js', data);
-          if(data.shoeBrands.length === 0) {
-            console.log('no shoes found');
-          }
-          else{
-            setAllShoes(data.shoes);
-            setShoeToDelete(data.shoes[0].ShoeBrand + '/' + data.shoes[0].ShoeLine + '/' + data.shoes[0].ShoeModel);
-            setLoading(false);
-          }
-        } catch (error) {
-          console.error("Error fetching shoes:", error);
-        }
-      };
+  const getShoes = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/getShoes");
+      const data = await response.json();
+      console.log("data in Upload.js", data);
+      if (data.shoeBrands.length === 0) {
+        console.log("no shoes found");
+      } else {
+        setAllShoes(data.shoes);
+        setShoeToDelete(
+          data.shoes[0].ShoeBrand +
+            "/" +
+            data.shoes[0].ShoeLine +
+            "/" +
+            data.shoes[0].ShoeModel
+        );
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching shoes:", error);
+    }
+  };
 
   useEffect(() => {
-    // const deleteShoes = async () => {
-    //   const response = await fetch("/api/delete", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({}),
-    //   });
+    getShoes();
 
-    //   if (!response.ok) {
-    //     throw new Error("Failed to delete shoe");
-    //   }
-    // };
-
-    // deleteShoes();
-
-
-  
-      getShoes();
-  
-      // for testing 
-      setAllShoes([
-        {
-          ID: 1,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '9060',
-          ShoeModel: 'Rain Loud Grey',
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Rain%20Cloud%20Grey.jpg',
-        },
-        {
-          ID: 2,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '9060',
-          ShoeModel: 'Arctic Grey',
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Arctic%20Grey.jpg',
-        },
-        {
-          ID: 3,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '9060',
-          ShoeModel: 'Beach Glass',
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Beach%20Glass.jpg',
-        },
-        {
-          ID: 4,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '9060',
-          ShoeModel: 'Beef and Broccoli',
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Beef%20and%20Broccoli.jpg',
-        },
-        {
-          ID: 5,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '990',
-          ShoeModel: 'Black White',
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/990/Black%20White.jpg',
-        },
-        {
-          ID: 6,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '990',
-          ShoeModel: 'Joe Freshgoods',
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/990/Joe%20Freshgoods.jpg',
-        },
-        {
-          ID: 7,
-          ShoeBrand: 'New Balance',
-          ShoeLine: '990',
-          ShoeModel: "Olive",
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/990/Olive.jpg',
-        },
-        {
-          ID: 8,
-          ShoeBrand: 'Asics',
-          ShoeLine: 'Gel Kahana',
-          ShoeModel: "TR V4",
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/Asics/Gel%20Kahana/TR%20V4.jpg',
-        },
-        {
-          ID: 9,
-          ShoeBrand: 'Asics',
-          ShoeLine: 'Gel Kahana',
-          ShoeModel: "TR V4 Silver Red",
-          URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/Asics/Gel%20Kahana/TR%20V4%20Silver%20Red.jpg',
-        },
-      ]);
-      setShoeToDelete('New Balance 9060 Rain Loud Grey');
+    // for testing
+    // setAllShoes([
+    //   {
+    //     ID: 1,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '9060',
+    //     ShoeModel: 'Rain Loud Grey',
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Rain%20Cloud%20Grey.jpg',
+    //   },
+    //   {
+    //     ID: 2,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '9060',
+    //     ShoeModel: 'Arctic Grey',
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Arctic%20Grey.jpg',
+    //   },
+    //   {
+    //     ID: 3,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '9060',
+    //     ShoeModel: 'Beach Glass',
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Beach%20Glass.jpg',
+    //   },
+    //   {
+    //     ID: 4,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '9060',
+    //     ShoeModel: 'Beef and Broccoli',
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/9060/Beef%20and%20Broccoli.jpg',
+    //   },
+    //   {
+    //     ID: 5,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '990',
+    //     ShoeModel: 'Black White',
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/990/Black%20White.jpg',
+    //   },
+    //   {
+    //     ID: 6,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '990',
+    //     ShoeModel: 'Joe Freshgoods',
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/990/Joe%20Freshgoods.jpg',
+    //   },
+    //   {
+    //     ID: 7,
+    //     ShoeBrand: 'New Balance',
+    //     ShoeLine: '990',
+    //     ShoeModel: "Olive",
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/New%20Balance/990/Olive.jpg',
+    //   },
+    //   {
+    //     ID: 8,
+    //     ShoeBrand: 'Asics',
+    //     ShoeLine: 'Gel Kahana',
+    //     ShoeModel: "TR V4",
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/Asics/Gel%20Kahana/TR%20V4.jpg',
+    //   },
+    //   {
+    //     ID: 9,
+    //     ShoeBrand: 'Asics',
+    //     ShoeLine: 'Gel Kahana',
+    //     ShoeModel: "TR V4 Silver Red",
+    //     URL: 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/v1/shoes/Asics/Gel%20Kahana/TR%20V4%20Silver%20Red.jpg',
+    //   },
+    // ]);
+    // setShoeToDelete('New Balance/9060/Rain Loud Grey');
   }, []);
 
   const handleShoeBrandChange = (e) => {
@@ -194,7 +181,7 @@ function Upload(props) {
   const handleShoeDelete = async (e) => {
     e.preventDefault();
     setUploading(true);
-    console.log('shoe to delete', shoeToDelete);
+    console.log("shoe to delete", shoeToDelete);
 
     try {
       const response = await fetch("/api/delete", {
@@ -208,11 +195,9 @@ function Upload(props) {
       });
 
       if (response.status !== 200) {
-        throw new Error(
-          `Failed to remove: ${shoeToDelete}`
-        );
+        throw new Error(`Failed to remove: ${shoeToDelete}`);
       }
-      
+
       Swal.fire({
         icon: "success",
         title: `${shoeToDelete} removed!`,
@@ -244,15 +229,19 @@ function Upload(props) {
     }
   };
 
-  console.log('all shoes', allShoes);
+  console.log("all shoes", allShoes);
 
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="mb-1">-- Hints --</div>
-          <div className="mb-1">Check that spelling is correct and matches what is on the website.</div> 
-          <div className="mb-1">Make sure there are no spaces before or after the file name.</div>
+          <div className="mb-1">
+            Check that spelling is correct and matches what is on the website.
+          </div>
+          <div className="mb-1">
+            Make sure there are no spaces before or after the file name.
+          </div>
           <div>-- Example --</div>
           <div className="mb-1">
             Shoe Brand: Asics - if this brand doesn't exist then this should
@@ -379,21 +368,31 @@ function Upload(props) {
               <label htmlFor="shoeBrand" className="form-label">
                 Shoe To Remove
               </label>
-              <select className="form-control custom-input" value={shoeToDelete} onChange={(e) => console.log('shoe to delete', e.target.value)} required disabled={uploading} placeholder="Select shoe to remove">
-                {allShoes && allShoes.length > 0 && allShoes.map((shoe) => (
-                  <option key={shoe.ID} value={`${shoe.ShoeBrand}/${shoe.ShoeLine}/${shoe.ShoeModel}`}>
-                    {`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
-                  </option>
-                ))}
+              <select
+                className="form-control custom-input"
+                value={shoeToDelete}
+                onChange={(e) => console.log("shoe to delete", e.target.value)}
+                required
+                disabled={uploading}
+                placeholder="Select shoe to remove"
+              >
+                {allShoes &&
+                  allShoes.length > 0 &&
+                  allShoes.map((shoe) => (
+                    <option
+                      key={shoe.ID}
+                      value={`${shoe.ShoeBrand}/${shoe.ShoeLine}/${shoe.ShoeModel}`}
+                    >
+                      {`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="d-flex justify-content-end align-items-center">
               <button
                 onClick={(e) => handleShoeDelete(e)}
                 className="btn custom-btn text-white"
-                disabled={
-                  uploading
-                }
+                disabled={uploading}
               >
                 {uploading ? (
                   <>
