@@ -23,12 +23,8 @@ export default async (req, context) => {
       }
 
       const shoesStore = getStore({ name: 'shoes', siteID: siteID, token: token });
-      // await shoesStore.delete("Asics /Gel Quantum Kinetic /Pepper Light Indigo ");
+      await shoesStore.delete(shoeToDelete);
 
-
-
-
-      
       return new Response(JSON.stringify({
         message: "Shoe blob deleted",
       }), {
