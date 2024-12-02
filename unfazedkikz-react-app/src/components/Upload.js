@@ -368,6 +368,10 @@ function Upload(props) {
           </form>
         </div>
         <div className="col-md-6">
+        <div className="mb-1">-- Hints --</div>
+          <div className="mb-1">
+            If removed shoe is still showing in dropdown check main page to see if shoe is still showing. Also try refreshing page.
+          </div>
           <form className="p-4 custom-form">
             <div className="mb-3">
               <label htmlFor="shoeBrand" className="form-label">
