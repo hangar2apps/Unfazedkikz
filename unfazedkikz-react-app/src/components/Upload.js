@@ -166,8 +166,12 @@ function Upload(props) {
         icon: "success",
         title: `Upload successful!`,
         text: ``,
-      });
-      clearForm();
+        showCancelButton: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      })
     } catch (error) {
       console.error("Error uploading image:", error);
       Swal.fire({
@@ -175,9 +179,7 @@ function Upload(props) {
         title: `Upload failed!`,
         text: ``,
       });
-    } finally {
-      setUploading(false);
-    }
+    } 
   };
 
   const handleShoeDelete = async (e) => {
@@ -204,7 +206,12 @@ function Upload(props) {
         icon: "success",
         title: `Shoe removed!`,
         text: ``,
-      });
+        showCancelButton: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      })
     } catch (error) {
       console.error(`Error removing shoe`, error);
       Swal.fire({
@@ -212,8 +219,6 @@ function Upload(props) {
         title: `Error removing shoe`,
         text: ``,
       });
-    } finally {
-      window.location.reload();
     }
   };
 
@@ -367,7 +372,7 @@ function Upload(props) {
           <form className="p-4 custom-form">
             <div className="mb-3">
               <label htmlFor="shoeBrand" className="form-label">
-                Shoe To Remove
+                Select Shoe To Remove
               </label>
               <select
                 className="form-control custom-input"
