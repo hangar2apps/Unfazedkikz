@@ -372,6 +372,9 @@ function Upload(props) {
           <div className="mb-1">
             If removed shoe is still showing in dropdown check main page to see if shoe is still showing. Also try refreshing page.
           </div>
+          <div className="mb-1">
+            The dropdown list is searchable. Just click in it and start typing.
+          </div>
           <form className="p-4 custom-form">
             <div className="mb-3">
               <label htmlFor="shoeBrand" className="form-label">
