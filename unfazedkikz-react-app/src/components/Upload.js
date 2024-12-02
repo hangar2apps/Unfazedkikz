@@ -14,12 +14,11 @@ function Upload(props) {
   const [shoeToDelete, setShoeToDelete] = useState("");
 
   const getShoes = async () => {
-    setLoading(true);
     try {
       const response = await fetch("/api/getShoes");
       const data = await response.json();
       console.log("data in Upload.js", data);
-      if (data.shoeBrands.length === 0) {
+      if (data.shoes.length === 0) {
         console.log("no shoes found");
       } else {
         setAllShoes(data.shoes);
@@ -30,7 +29,6 @@ function Upload(props) {
             "/" +
             data.shoes[0].ShoeModel
         );
-        setLoading(false);
       }
     } catch (error) {
       console.error("Error fetching shoes:", error);
