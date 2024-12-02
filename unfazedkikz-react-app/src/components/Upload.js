@@ -169,7 +169,7 @@ function Upload(props) {
         showCancelButton: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.reload();
+          window.location.reload(true);
         }
       })
     } catch (error) {
@@ -209,7 +209,7 @@ function Upload(props) {
         showCancelButton: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.reload();
+          window.location.reload(true);
         }
       })
     } catch (error) {
