@@ -208,6 +208,7 @@ function Upload(props) {
         text: ``,
         showCancelButton: false,
       }).then((result) => {
+        console.log('result in shoe removed', result);
         if (result.isConfirmed) {
           window.location.reload(true);
         }
