@@ -5,6 +5,9 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 function LineRow({ line, shoes }) {
   const scrollContainerRef = useRef(null);
@@ -100,7 +103,21 @@ function LineRow({ line, shoes }) {
                   className="card-img-top-wrapper"
                   style={{ height: "200px", overflow: "hidden" }}
                 >
-                  <img
+                  <LazyLoadImage
+                  className="card-img-top"
+                  key={shoe.ID}
+          alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
+          src={shoe.URL} 
+          effect="blur"
+          // placeholderSrc='path/to/placeholder/image.jpg' // Optional placeholder
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+                  {/* <img
                     src={shoe.URL}
                     className="card-img-top"
                     alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
@@ -110,7 +127,7 @@ function LineRow({ line, shoes }) {
                       objectFit: "cover",
                       objectPosition: "center",
                     }}
-                  />{" "}
+                  />{" "} */}
                 </div>
                 <div className="card-body">
                   <h5 className="card-title">{`${shoe.ShoeModel}`}</h5>
