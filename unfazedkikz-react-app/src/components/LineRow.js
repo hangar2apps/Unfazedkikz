@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Image } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -110,13 +110,27 @@ function LineRow({ line, shoes }) {
                   className="card-img-top-wrapper"
                   style={{ height: "200px", overflow: "hidden" }}
                 >
-                  <LazyLoadImage
+                  {/* <LazyLoadImage
                     className="card-img-top"
                     key={shoe.ID}
                     alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
                     src={shoe.URL}
                     effect="blur"
-                    // placeholderSrc='path/to/placeholder/image.jpg' // Optional placeholder
+                    placeholderSrc='path/to/placeholder/image.jpg' // Optional placeholder
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }}
+                  /> */}
+                  <Image
+                    className="card-img-top"
+                    key={shoe.ID}
+                    alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
+                    src={shoe.URL}
+                    effect="blur"
+                    placeholderSrc='path/to/placeholder/image.jpg' // Optional placeholder
                     style={{
                       width: "100%",
                       height: "100%",
