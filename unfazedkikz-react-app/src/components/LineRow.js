@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, Image } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -124,13 +124,13 @@ function LineRow({ line, shoes }) {
                       objectPosition: "center",
                     }}
                   /> */}
-                  <Image
+                  <img
                     className="card-img-top"
                     key={shoe.ID}
                     alt={`${shoe.ShoeBrand} ${shoe.ShoeLine} ${shoe.ShoeModel}`}
                     src={shoe.URL}
-                    effect="blur"
-                    placeholderSrc='path/to/placeholder/image.jpg' // Optional placeholder
+                    // effect="blur"
+                    // placeholderSrc='path/to/placeholder/image.jpg' // Optional placeholder
                     style={{
                       width: "100%",
                       height: "100%",
