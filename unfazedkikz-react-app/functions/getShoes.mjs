@@ -72,15 +72,12 @@ export default async (req, context) => {
         .filter(result => result.status === "fulfilled" && result.value)
         .map(result => result.value));
 
-        console.log(`Processed ${i + batchSize} images...`);
-
-      // Return early if we've processed enough to prevent timeout
-      if (shoesArray.length >= 1000) break;
-    }
+        console.log(`Processed ${Math.min(i + batchSize, blobs.length)} of ${blobs.length} images...`);
+      }
 
 
-    console.log("ShoeBrands:", Array.from(shoeBrands));
-    console.log("Shoes processed:", shoesArray.length);
+    console.log(`Final ShoeBrands count: ${shoeBrands.size}`);
+    console.log(`Total Shoes processed: ${shoesArray.length}`);
 
     return new Response(JSON.stringify({
       shoeBrands: Array.from(shoeBrands),
