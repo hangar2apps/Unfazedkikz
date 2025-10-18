@@ -1,16 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
 import { Octokit } from "@octokit/rest";
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!supabaseUrl || !supabaseServiceKey) {
-  throw new Error("Missing Supabase environment variables");
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 export default async (req) => {
+
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
@@ -29,11 +23,13 @@ export default async (req) => {
       });
     }
 
+
     // Convert base64 to buffer
     const base64Image = imageData.replace(/^data:image\/\w+;base64,/, "");
     const imageBuffer = Buffer.from(base64Image, "base64");
 
     // Initialize Octokit for GitHub
+
     const octokit = new Octokit({
       auth: process.env.GITHUB_TOKEN
     });
@@ -45,6 +41,7 @@ export default async (req) => {
     const targetBranch = 'main';
 
     try {
+
       // Get the current commit SHA for the target branch
       const { data: refData } = await octokit.git.getRef({
         owner,
@@ -54,6 +51,7 @@ export default async (req) => {
       const parentSha = refData.object.sha;
 
       // Upload to GitHub
+
       const response = await octokit.repos.createOrUpdateFileContents({
         owner,
         repo,
@@ -65,12 +63,15 @@ export default async (req) => {
         sha: parentSha
       });
 
+
       if (response.status !== 201) {
+
         return new Response(JSON.stringify({ error: "Failed to upload image!" }), {
           status: 500,
           headers: { "Content-Type": "application/json" }
         });
       }
+
 
       // Get the image URL from GitHub
       const imageUrl = response.data.content.download_url;
@@ -145,12 +146,15 @@ export default async (req) => {
         message: "Image uploaded successfully",
         url: imageUrl,
         shoeId: shoe.id
+
       }), {
         status: 200,
         headers: { "Content-Type": "application/json" }
       });
 
+
     } catch (error) {
+
       console.error("GitHub API Error:", error);
       return new Response(JSON.stringify({ error: "Failed to upload image to GitHub" }), {
         status: 500,

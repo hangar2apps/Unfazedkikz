@@ -1,15 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Missing Supabase environment variables");
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { getStore } from "@netlify/blobs";
 
 export default async (req, context) => {
+  console.log("in getShoes cloud function");
+  // Only allow POST requests
   if (req.method !== "GET") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
@@ -18,31 +11,30 @@ export default async (req, context) => {
   }
 
   try {
-    // Get all brands
-    const { data: brands, error: brandsError } = await supabase
-      .from("brands")
-      .select("id, name")
-      .order("name");
-
-    if (brandsError) {
-      throw brandsError;
+    const siteID = process.env.NETLIFY_SITE_ID;
+    const token = process.env.NETLIFY_ACCESS_TOKEN;
+  
+    if (!siteID || !token) {
+      return new Response(
+          JSON.stringify({message: "Missing Netlify Blobs configuration"}), { status: 500 , headers: { 'Content-Type': 'application/json' } }
+      )
     }
 
-    // Get all shoes with their brand and line info
-    const { data: shoes, error: shoesError } = await supabase
-      .from("shoes")
-      .select(`
-        id,
-        model,
-        image_url,
-        lines(id, name, brand_id, brands(id, name))
-      `)
-      .order("created_at", { ascending: false });
+    const shoes = getStore({ name: 'shoes', siteID: siteID, token: token });
 
-    if (shoesError) {
-      throw shoesError;
+    
+    const { blobs } = await shoes.list();
+    console.log('blobs', blobs);
+
+    if(blobs.length === 0) {
+      return new Response(JSON.stringify({
+        shoeBrands: [],
+        shoes: ''
+      }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
     }
-
     // Format shoes data for frontend
     const formattedShoes = shoes.map(shoe => ({
       ID: shoe.id,
@@ -52,14 +44,17 @@ export default async (req, context) => {
       URL: shoe.image_url
     }));
 
+
     return new Response(JSON.stringify({
-      shoeBrands: brands.map(b => b.name),
-      shoes: formattedShoes,
-      totalShoes: formattedShoes.length
+      shoeBrands: Array.from(shoeBrands),
+      shoes: shoesArray, // this will be an object with shoeBrand as key 
+      totalProcessed: shoesArray.length,
+      totalAvailable: blobs.length
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
+   
   } catch (error) {
     console.error("Function Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
