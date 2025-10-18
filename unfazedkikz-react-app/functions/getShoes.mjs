@@ -44,16 +44,12 @@ export default async (req, context) => {
     }
 
     // Format shoes data for frontend
-    const isDev = process.env.CONTEXT === 'dev' || !process.env.NODE_ENV?.includes('production');
     const formattedShoes = shoes.map(shoe => ({
       ID: shoe.id,
       ShoeModel: shoe.model,
       ShoeLine: shoe.lines.name,
       ShoeBrand: shoe.lines.brands.name,
-      URL: isDev ? shoe.image_url?.replace(
-        /https:\/\/[^.]+\.netlify\.app/,
-        ''
-      ) : shoe.image_url
+      URL: shoe.image_url
     }));
 
     return new Response(JSON.stringify({

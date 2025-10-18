@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { getStore } from "@netlify/blobs";
+import { Octokit } from "@octokit/rest";
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -10,7 +10,7 @@ if (!supabaseUrl || !supabaseServiceKey) {
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-export default async (req, context) => {
+export default async (req) => {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
@@ -59,25 +59,38 @@ export default async (req, context) => {
       });
     }
 
-    // Delete from Netlify Blobs
-    const siteID = process.env.NETLIFY_SITE_ID;
-    const token = process.env.NETLIFY_ACCESS_TOKEN;
+    // Initialize Octokit
+    const octokit = new Octokit({
+      auth: process.env.GITHUB_TOKEN
+    });
 
-    if (!siteID || !token) {
-      return new Response(
-        JSON.stringify({ message: "Missing Netlify Blobs configuration" }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    const store = getStore({ name: "shoe-images", siteID, token });
-    const blobKey = `${brandName}/${lineName}/${modelName}`;
+    // GitHub repository details
+    const owner = process.env.GITHUB_OWNER;
+    const repo = process.env.GITHUB_REPO;
+    const targetBranch = 'main';
+    const imagePath = `shoes/${brandName}/${lineName}/${modelName}.jpg`;
 
     try {
-      await store.delete(blobKey);
-    } catch (blobError) {
-      console.warn(`Could not delete blob ${blobKey}:`, blobError);
-      // Continue even if blob deletion fails
+      // Get the file's current details
+      const { data: fileDetails } = await octokit.repos.getContent({
+        owner,
+        repo,
+        path: imagePath,
+        ref: targetBranch
+      });
+
+      // Delete the file
+      await octokit.repos.deleteFile({
+        owner,
+        repo,
+        path: imagePath,
+        message: `Remove shoe image: ${shoeToDelete}`,
+        sha: fileDetails.sha,
+        branch: targetBranch
+      });
+    } catch (githubError) {
+      // Log but continue - file might not exist
+      console.warn(`Could not delete GitHub file ${imagePath}:`, githubError.message);
     }
 
     // Delete from Supabase

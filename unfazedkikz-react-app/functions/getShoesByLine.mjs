@@ -37,18 +37,8 @@ export default async (req) => {
 
     if (error) throw error;
 
-    // For local development, convert URLs to local blob access
-    const isDev = process.env.CONTEXT === 'dev' || !process.env.NODE_ENV?.includes('production');
-    const formattedShoes = shoes?.map(shoe => ({
-      ...shoe,
-      image_url: isDev ? shoe.image_url?.replace(
-        /https:\/\/[^.]+\.netlify\.app/,
-        ''
-      ) : shoe.image_url
-    })) || [];
-
     return new Response(JSON.stringify({
-      shoes: formattedShoes
+      shoes: shoes || []
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
