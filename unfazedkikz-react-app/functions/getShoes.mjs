@@ -1,15 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Missing Supabase environment variables");
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { getStore } from "@netlify/blobs";
 
 export default async (req, context) => {
+  console.log("in getShoes cloud function");
+  // Only allow POST requests
   if (req.method !== "GET") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
@@ -18,52 +11,84 @@ export default async (req, context) => {
   }
 
   try {
-    // Get all brands
-    const { data: brands, error: brandsError } = await supabase
-      .from("brands")
-      .select("id, name")
-      .order("name");
-
-    if (brandsError) {
-      throw brandsError;
+    const siteID = process.env.NETLIFY_SITE_ID;
+    const token = process.env.NETLIFY_ACCESS_TOKEN;
+  
+    if (!siteID || !token) {
+      return new Response(
+          JSON.stringify({message: "Missing Netlify Blobs configuration"}), { status: 500 , headers: { 'Content-Type': 'application/json' } }
+      )
     }
 
-    // Get all shoes with their brand and line info
-    const { data: shoes, error: shoesError } = await supabase
-      .from("shoes")
-      .select(`
-        id,
-        model,
-        image_url,
-        lines(id, name, brand_id, brands(id, name))
-      `)
-      .order("created_at", { ascending: false });
+    const shoes = getStore({ name: 'shoes', siteID: siteID, token: token });
 
-    if (shoesError) {
-      throw shoesError;
+    
+    const { blobs } = await shoes.list();
+    console.log('blobs', blobs);
+
+    if(blobs.length === 0) {
+      return new Response(JSON.stringify({
+        shoeBrands: [],
+        shoes: ''
+      }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
     }
 
-    // Format shoes data for frontend
-    const isDev = process.env.CONTEXT === 'dev' || !process.env.NODE_ENV?.includes('production');
-    const formattedShoes = shoes.map(shoe => ({
-      ID: shoe.id,
-      ShoeModel: shoe.model,
-      ShoeLine: shoe.lines.name,
-      ShoeBrand: shoe.lines.brands.name,
-      URL: isDev ? shoe.image_url?.replace(
-        /https:\/\/[^.]+\.netlify\.app/,
-        ''
-      ) : shoe.image_url
-    }));
+    //process blobs
+    const shoeBrands = new Set();
+
+    let shoesArray = [];
+    const batchSize = 50; // Process 50 images at a time
+
+    for (let i = 0; i < blobs.length; i += batchSize) {
+      const batch = blobs.slice(i, i + batchSize);
+      
+      // Process images in parallel
+      const batchResults = await Promise.allSettled(batch.map(async (blob) => {
+        try {
+          const [shoeBrand, shoeLine, shoeModel] = blob.key.split('/');
+          shoeBrands.add(shoeBrand);
+
+          const shoeObj = await shoes.get(blob.key);
+          const parsedShoeObj = JSON.parse(shoeObj);
+
+          return {
+            ID: parsedShoeObj.ID,
+            ShoeBrand: parsedShoeObj.shoeBrand,
+            ShoeLine: parsedShoeObj.shoeLine,
+            ShoeModel: parsedShoeObj.shoeModel,
+            URL: parsedShoeObj.url
+          };
+        } catch (error) {
+          console.error(`Error processing shoe ${blob.key}:`, error);
+          return null;
+        }
+      }));
+
+      // Collect valid results
+      shoesArray = shoesArray.concat(batchResults
+        .filter(result => result.status === "fulfilled" && result.value)
+        .map(result => result.value));
+
+        console.log(`Processed ${Math.min(i + batchSize, blobs.length)} of ${blobs.length} images...`);
+      }
+
+
+    console.log(`Final ShoeBrands count: ${shoeBrands.size}`);
+    console.log(`Total Shoes processed: ${shoesArray.length}`);
 
     return new Response(JSON.stringify({
-      shoeBrands: brands.map(b => b.name),
-      shoes: formattedShoes,
-      totalShoes: formattedShoes.length
+      shoeBrands: Array.from(shoeBrands),
+      shoes: shoesArray, // this will be an object with shoeBrand as key 
+      totalProcessed: shoesArray.length,
+      totalAvailable: blobs.length
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
+   
   } catch (error) {
     console.error("Function Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
