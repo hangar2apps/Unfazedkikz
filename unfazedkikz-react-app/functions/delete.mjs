@@ -1,19 +1,25 @@
-import { getStore } from "@netlify/blobs";
+import { createClient } from "@supabase/supabase-js";
 import { Octokit } from "@octokit/rest";
 
-export default async (req, context) => {
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  // Only allow POST requests
+if (!supabaseUrl || !supabaseServiceKey) {
+  throw new Error("Missing Supabase environment variables");
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+const handler = async (req) => {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
       headers: { "Content-Type": "application/json" }
     });
   }
-  try {
 
-    let {shoeToDelete} = await req.json();
-    console.log('delete request', shoeToDelete);
+  try {
+    const { shoeToDelete } = await req.json();
 
     if (!shoeToDelete) {
       return new Response(JSON.stringify({ error: "Missing shoe to delete" }), {
@@ -22,8 +28,39 @@ export default async (req, context) => {
       });
     }
 
-     // Initialize Octokit
-     const octokit = new Octokit({
+    // shoeToDelete format: "BrandName/LineName/ModelName"
+    const [brandName, lineName, modelName] = shoeToDelete.split("/");
+
+    // Find the shoe in Supabase
+    const { data: shoe, error: shoeError } = await supabase
+      .from("shoes")
+      .select(`
+        id,
+        lines(id, brand_id, brands(id, name), name)
+      `)
+      .eq("model", modelName)
+      .single();
+
+    if (shoeError || !shoe) {
+      return new Response(JSON.stringify({ error: "Shoe not found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Verify brand and line match
+    if (
+      shoe.lines.brands.name !== brandName ||
+      shoe.lines.name !== lineName
+    ) {
+      return new Response(JSON.stringify({ error: "Shoe details don't match" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Initialize Octokit
+    const octokit = new Octokit({
       auth: process.env.GITHUB_TOKEN
     });
 
@@ -31,7 +68,7 @@ export default async (req, context) => {
     const owner = process.env.GITHUB_OWNER;
     const repo = process.env.GITHUB_REPO;
     const targetBranch = 'main';
-    const imagePath = `shoes/${shoeToDelete}.jpg`;
+    const imagePath = `shoes/${brandName}/${lineName}/${modelName}.jpg`;
 
     try {
       // Get the file's current details
@@ -43,7 +80,7 @@ export default async (req, context) => {
       });
 
       // Delete the file
-      const deleteResponse = await octokit.repos.deleteFile({
+      await octokit.repos.deleteFile({
         owner,
         repo,
         path: imagePath,
@@ -51,46 +88,35 @@ export default async (req, context) => {
         sha: fileDetails.sha,
         branch: targetBranch
       });
-
-      //delete shoe from blob
-      const siteID = process.env.NETLIFY_SITE_ID;
-      const token = process.env.NETLIFY_ACCESS_TOKEN;
-    
-      if (!siteID || !token) {
-        return new Response(
-            JSON.stringify({message: "Missing Netlify Blobs configuration"}), { status: 500 , headers: { 'Content-Type': 'application/json' } }
-        )
-      }
-
-      const shoesStore = getStore({ name: 'shoes', siteID: siteID, token: token });
-      await shoesStore.delete(shoeToDelete);
-
-      return new Response(JSON.stringify({
-        message: "Shoe removed successfully",
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-  } catch (error) {
-    // Handle case where file might not exist
-    if (error.status === 404) {
-      return new Response(JSON.stringify({ error: "Shoe image not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" }
-      });
+    } catch (githubError) {
+      // Log but continue - file might not exist
+      console.warn(`Could not delete GitHub file ${imagePath}:`, githubError.message);
     }
 
-    console.error("GitHub API Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to remove shoe" }), {
-      status: 500,
+    // Delete from Supabase
+    const { error: deleteError } = await supabase
+      .from("shoes")
+      .delete()
+      .eq("id", shoe.id);
+
+    if (deleteError) {
+      throw deleteError;
+    }
+
+    return new Response(JSON.stringify({
+      message: "Shoe removed successfully"
+    }), {
+      status: 200,
       headers: { "Content-Type": "application/json" }
     });
-  }
+
   } catch (error) {
     console.error("Function Error:", error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
+    return new Response(JSON.stringify({ error: "Failed to delete shoe" }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });
   }
 };
+
+export default handler;
