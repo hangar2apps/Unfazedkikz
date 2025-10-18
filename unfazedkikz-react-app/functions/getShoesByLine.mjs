@@ -9,7 +9,7 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const handler = async (req) => {
+export default async (req) => {
   if (req.method !== "GET") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
@@ -18,44 +18,27 @@ const handler = async (req) => {
   }
 
   try {
-    // Get all brands
-    const { data: brands, error: brandsError } = await supabase
-      .from("brands")
-      .select("id, name")
-      .order("name");
+    const url = new URL(req.url);
+    const lineId = url.searchParams.get("lineId");
 
-    if (brandsError) {
-      throw brandsError;
+    if (!lineId) {
+      return new Response(JSON.stringify({ error: "Line ID required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
     }
 
-    // Get all shoes with their brand and line info
-    const { data: shoes, error: shoesError } = await supabase
+    // Get shoes for the line
+    const { data: shoes, error } = await supabase
       .from("shoes")
-      .select(`
-        id,
-        model,
-        image_url,
-        lines(id, name, brand_id, brands(id, name))
-      `)
+      .select("id, model, image_url, line_id")
+      .eq("line_id", lineId)
       .order("created_at", { ascending: false });
 
-    if (shoesError) {
-      throw shoesError;
-    }
-
-    // Format shoes data for frontend
-    const formattedShoes = shoes.map(shoe => ({
-      ID: shoe.id,
-      ShoeModel: shoe.model,
-      ShoeLine: shoe.lines.name,
-      ShoeBrand: shoe.lines.brands.name,
-      URL: shoe.image_url
-    }));
+    if (error) throw error;
 
     return new Response(JSON.stringify({
-      shoeBrands: brands.map(b => b.name),
-      shoes: formattedShoes,
-      totalShoes: formattedShoes.length
+      shoes: shoes || []
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
@@ -68,5 +51,3 @@ const handler = async (req) => {
     });
   }
 };
-
-export default handler;
