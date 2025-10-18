@@ -1,10 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
 import { Octokit } from "@octokit/rest";
 
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
+if (!supabaseUrl || !supabaseServiceKey) {
+  throw new Error("Missing Supabase environment variables");
+}
 
-export default async (req) => {
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+const handler = async (req) => {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
       status: 405,
@@ -169,3 +175,5 @@ export default async (req) => {
     });
   }
 };
+
+export default handler;
