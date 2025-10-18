@@ -20,6 +20,7 @@ const handler = async (req) => {
   }
 
   try {
+    console.log("Attempting to query shoes from Supabase...");
     // Query all shoes with joins to lines and brands
     const { data: shoes, error: shoesError } = await supabase
       .from("shoes")
@@ -37,7 +38,11 @@ const handler = async (req) => {
         )
       `);
 
-    if (shoesError) throw shoesError;
+    console.log("Query result:", { shoesError, shoesCount: shoes?.length });
+    if (shoesError) {
+      console.error("Supabase query error:", shoesError);
+      throw shoesError;
+    }
 
     if (!shoes || shoes.length === 0) {
       return new Response(JSON.stringify({

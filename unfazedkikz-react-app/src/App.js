@@ -19,17 +19,28 @@ function App() {
       setLoading(true);
       try {
         const response = await fetch("/api/getShoes");
+        if (!response.ok) {
+          console.error(`API error: ${response.status}`);
+          setLoading(false);
+          return;
+        }
         const data = await response.json();
+        if (!data || !data.shoeBrands || !Array.isArray(data.shoeBrands)) {
+          console.log('Invalid response format or no shoes found');
+          setLoading(false);
+          return;
+        }
         if(data.shoeBrands.length === 0) {
           console.log('no shoes found');
         }
         else{
           setShoeBrands(data.shoeBrands);
           setShoes(data.shoes);
-          setLoading(false);
         }
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching shoes:", error);
+        setLoading(false);
       }
     };
 
