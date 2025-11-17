@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9ba45280-dab7-4a67-b579-6642fa83aaa9', '7925efcb-30b2-48f4-8422-aae1074af9f4', 'Brown', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Versace/Dress Shoes/Brown', '2025-02-22 21:23:02.074');

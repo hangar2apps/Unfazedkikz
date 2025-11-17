@@ -1,13 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Missing Supabase environment variables");
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+const WORKER_URL = 'https://shiny-paper-3195.hangar2apps.workers.dev';
 
 export default async (req) => {
   if (req.method !== "GET") {
@@ -28,18 +19,14 @@ export default async (req) => {
       });
     }
 
-    // Get shoes for the line
-    const { data: shoes, error } = await supabase
-      .from("shoes")
-      .select("id, model, image_url, line_id")
-      .eq("line_id", lineId)
-      .order("created_at", { ascending: false });
+    const response = await fetch(`${WORKER_URL}/shoes/by-line?lineId=${lineId}`);
+    const data = await response.json();
 
-    if (error) throw error;
+    if (!response.ok) {
+      throw new Error('Worker API error');
+    }
 
-    return new Response(JSON.stringify({
-      shoes: shoes || []
-    }), {
+    return new Response(JSON.stringify(data), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });

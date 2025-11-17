@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9d3e7860-d69f-4777-8699-9a853dbafdba', '6cfcf064-a316-4c53-850b-452c690a0645', 'Bruce Lee Alternate', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Kobe/5 Protro/Bruce Lee Alternate.jpg', '2024-12-19 05:17:53.162');

@@ -1,14 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
 import { Octokit } from "@octokit/rest";
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  throw new Error("Missing Supabase environment variables");
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const WORKER_URL = 'https://shiny-paper-3195.hangar2apps.workers.dev';
 
 const handler = async (req) => {
   if (req.method !== "POST") {
@@ -28,50 +20,19 @@ const handler = async (req) => {
       });
     }
 
-    // shoeToDelete format: "BrandName/LineName/ModelName"
     const [brandName, lineName, modelName] = shoeToDelete.split("/");
-
-    // Find the shoe in Supabase
-    const { data: shoe, error: shoeError } = await supabase
-      .from("shoes")
-      .select(`
-        id,
-        lines(id, brand_id, brands(id, name), name)
-      `)
-      .eq("model", modelName)
-      .single();
-
-    if (shoeError || !shoe) {
-      return new Response(JSON.stringify({ error: "Shoe not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-
-    // Verify brand and line match
-    if (
-      shoe.lines.brands.name !== brandName ||
-      shoe.lines.name !== lineName
-    ) {
-      return new Response(JSON.stringify({ error: "Shoe details don't match" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
 
     // Initialize Octokit
     const octokit = new Octokit({
       auth: process.env.GITHUB_TOKEN
     });
 
-    // GitHub repository details
     const owner = process.env.GITHUB_OWNER;
     const repo = process.env.GITHUB_REPO;
     const targetBranch = 'main';
     const imagePath = `shoes/${brandName}/${lineName}/${modelName}.jpg`;
 
     try {
-      // Get the file's current details
       const { data: fileDetails } = await octokit.repos.getContent({
         owner,
         repo,
@@ -79,7 +40,6 @@ const handler = async (req) => {
         ref: targetBranch
       });
 
-      // Delete the file
       await octokit.repos.deleteFile({
         owner,
         repo,
@@ -89,18 +49,18 @@ const handler = async (req) => {
         branch: targetBranch
       });
     } catch (githubError) {
-      // Log but continue - file might not exist
       console.warn(`Could not delete GitHub file ${imagePath}:`, githubError.message);
     }
 
-    // Delete from Supabase
-    const { error: deleteError } = await supabase
-      .from("shoes")
-      .delete()
-      .eq("id", shoe.id);
+    // Delete from D1 via Worker API
+    const dbResponse = await fetch(`${WORKER_URL}/shoes`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ shoeToDelete })
+    });
 
-    if (deleteError) {
-      throw deleteError;
+    if (!dbResponse.ok) {
+      throw new Error('Failed to delete from database');
     }
 
     return new Response(JSON.stringify({

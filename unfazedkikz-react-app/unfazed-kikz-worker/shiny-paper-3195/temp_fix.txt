@@ -1,0 +1,29 @@
+
+/**
+ * Get lines (optionally filtered by brand)
+ */
+async function getLines(
+  db: D1Database,
+  brandId: string | null,
+  headers: Record<string, string>
+) {
+  let query = 'SELECT id, brand_id, name FROM lines';
+  
+  if (brandId) {
+    query += ' WHERE brand_id = ?';
+  }
+  
+  query += ' ORDER BY name';
+
+  let stmt = db.prepare(query);
+  
+  if (brandId) {
+    stmt = stmt.bind(brandId);
+  }
+
+  const result = await stmt.all();
+
+  return jsonResponse({
+    lines: result.results || []
+  }, 200, headers);
+}

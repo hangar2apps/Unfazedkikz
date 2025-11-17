@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9c253a91-236b-4e5c-904a-b3217036bf13', 'ee80a333-b707-4662-8b59-0f5fa5c1e7e8', 'Solefly Mi Casa Es Su Casa', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Jordan 8/Solefly Mi Casa Es Su Casa', '2025-08-26 03:57:29.3');

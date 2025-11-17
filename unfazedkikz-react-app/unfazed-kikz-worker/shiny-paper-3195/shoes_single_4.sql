@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('994ce3dc-9647-4886-b329-db59885810d5', '81d74bcc-325d-40e3-a677-a0a9239bbe98', 'Corteiz Aegean Storm Blue', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Air Max 95/Corteiz Aegean Storm Blue.jpg', '2025-03-12 04:43:42.92');

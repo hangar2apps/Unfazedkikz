@@ -4,7 +4,6 @@
   "description": "Netlify Functions for Unfazed Kikz",
   "type": "module",
   "dependencies": {
-    "@supabase/supabase-js": "^2.38.0",
     "@octokit/rest": "^21.0.2",
     "@netlify/functions": "^2.8.2"
   }

@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9ed50379-a46a-43c9-907e-78992361c2e7', '76085c67-501f-4a8f-9e47-4deba7f6886f', 'Coconut Milk Hyper Royal', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Vapor Max Plus/Coconut Milk Hyper Royal', '2024-12-24 02:46:56.057');

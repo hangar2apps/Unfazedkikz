@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9ac589cd-07f5-473f-a430-88f820b4b3c6', 'bca23771-790b-48ed-b28d-6f993d5c324c', 'One Block At A Time', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Dunk Low/One Block At A Time.jpg', '2024-11-30 19:45:02.673');

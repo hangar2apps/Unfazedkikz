@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9a36a455-2904-43fa-8abf-4acc589f8817', '76085c67-501f-4a8f-9e47-4deba7f6886f', 'Voltage Purple', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Vapor Max Plus/Voltage Purple', '2024-12-24 03:04:01.818');

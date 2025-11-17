@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9b161f7f-059d-4c34-8ace-296bcac0e3da', '55e00b7b-0e37-4bef-9ed1-40e1dd7e7272', 'All Petals United', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Air Max 1/All Petals United.jpg', '2025-01-03 16:54:10.934');

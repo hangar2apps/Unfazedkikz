@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9ad87690-4f98-49ca-b001-3b0cabb8b3a6', '55e00b7b-0e37-4bef-9ed1-40e1dd7e7272', 'Rush Maroon', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Air Max 1/Rush Maroon.jpg', '2025-01-03 06:13:51.086');

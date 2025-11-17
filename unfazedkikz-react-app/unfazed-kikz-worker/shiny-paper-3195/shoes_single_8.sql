@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9a204991-c30a-4d78-9819-2e828ae2ed40', '9810ae8a-1601-44be-9cf4-5721f1bc75e7', 'Tech Grey', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Jordan 1 Low/Tech Grey', '2024-12-09 02:32:58.792');

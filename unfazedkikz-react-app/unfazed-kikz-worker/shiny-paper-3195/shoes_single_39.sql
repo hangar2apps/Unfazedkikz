@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9f6a58a7-8830-4dd7-91fd-921586e87606', 'c6f871f6-50d7-4475-be59-ed471db0182f', 'Ambush Black White', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Air Force 1 Low/Ambush Black White.jpg', '2025-01-19 23:23:01.814');

@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9c73ecb4-0337-48e3-a5e9-e84564c89543', 'be9b577b-512d-4952-b9a4-f6bbec09f5fc', 'Monogram Tote', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Gucci/Bags/Monogram Tote.jpg', '2025-02-26 19:05:55.172');

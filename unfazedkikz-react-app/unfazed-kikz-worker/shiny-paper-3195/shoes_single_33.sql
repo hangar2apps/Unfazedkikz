@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9e7019a9-f709-45e7-ab27-0eea5c199698', 'bca23771-790b-48ed-b28d-6f993d5c324c', 'Union Pistachio', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Dunk Low/Union Pistachio.jpg', '2024-11-30 05:52:53.403');

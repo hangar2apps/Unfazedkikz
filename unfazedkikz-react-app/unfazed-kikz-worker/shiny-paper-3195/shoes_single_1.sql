@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES (('9892265f-b173-4931-96c4-97e3e80cbe0d', '0fd885c5-a4e9-4692-a169-a12011cfd76e', 'Phoenix Suns', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Air Foamposite/Phoenix Suns.jpg', '2025-01-04 04:57:14.853');

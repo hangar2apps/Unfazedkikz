@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('a11cbda2-b9f4-4f24-8f9a-27a2bd694933', '8a1c0058-4b1f-415a-acad-ba47007998c1', 'Olive Green', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Adidas/Vento/Olive Green.jpg', '2024-12-25 01:03:08.338');

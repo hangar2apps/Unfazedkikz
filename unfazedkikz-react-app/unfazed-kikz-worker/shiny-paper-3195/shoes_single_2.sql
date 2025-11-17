@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('98b5f1cf-d709-47a7-b42a-eabd572666b7', '9810ae8a-1601-44be-9cf4-5721f1bc75e7', 'Denim Blue Gum', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Jordan 1 Low/Denim Blue Gum.jpg', '2024-12-09 02:03:38.89');

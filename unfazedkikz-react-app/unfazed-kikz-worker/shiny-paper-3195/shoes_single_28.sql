@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9dd89b4f-731f-4ff8-b004-b2eb1008904f', 'af2e229a-54af-4626-b99a-f3f9afff295c', 'Duke PE', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Kobe/8 Protro/Duke PE.jpg', '2025-09-18 05:09:40.017');

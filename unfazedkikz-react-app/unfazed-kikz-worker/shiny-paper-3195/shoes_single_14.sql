@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9ae78c13-17ce-43c9-a6da-0e56abcb5716', '9810ae8a-1601-44be-9cf4-5721f1bc75e7', 'University Blue', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Jordan 1 Low/University Blue', '2024-12-09 01:10:53.153');

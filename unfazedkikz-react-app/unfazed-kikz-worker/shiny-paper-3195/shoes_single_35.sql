@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9e815f1a-ca4d-4faf-a2da-c1878e4ba0b0', 'a453a18b-7b5c-49ab-9103-eb24e76ce0dd', 'Black White', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Jordan 14/Black White', '2024-12-14 21:19:54.784');

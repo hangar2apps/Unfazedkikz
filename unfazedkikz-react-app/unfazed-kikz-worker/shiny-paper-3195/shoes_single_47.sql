@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('a0d92f52-8527-410b-b7f3-9faaf2b95bfc', '36775c51-ba51-4e68-b91f-1e36a7202304', 'Team Forest Green', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/New Balance/9060/Team Forest Green.jpg', '2024-11-20 16:44:32.13');

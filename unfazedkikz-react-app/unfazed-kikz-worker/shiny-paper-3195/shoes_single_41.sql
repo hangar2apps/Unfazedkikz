@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9fb64770-4b63-453f-a27b-82ac2d0fc3de', '755c7599-355d-4fa7-9bcf-842d6663631e', 'Fade', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Yezzy/350 V2/Fade', '2024-12-29 00:00:45.248');

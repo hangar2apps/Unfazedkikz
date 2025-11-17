@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9e0dd714-ed10-46f1-8186-de1e472435a8', 'e4678652-6436-4ed6-9b1d-51de42c4d3e1', 'Summit White', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Jordan Spizike Low/Summit White', '2025-01-07 02:03:13.741');

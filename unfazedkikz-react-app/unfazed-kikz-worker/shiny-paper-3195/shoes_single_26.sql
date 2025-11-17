@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9d18cded-3b08-45fb-9535-662fb4f33471', '4e14d78b-95df-44eb-b96f-54ab603515a1', 'Silver Black Pink', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Asics/Gel Kayano 14/Silver Black Pink.jpg', '2024-11-23 03:47:47.879');

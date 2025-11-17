@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9c269b02-032e-43d3-8767-05bb33ea5320', 'f255e5ee-d487-470f-8fad-3c0df508e91c', 'Gucci Rimless Gold', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Accessories/Sunglasses/Gucci Rimless Gold.jpg', '2025-05-09 03:28:57.757');

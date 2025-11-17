@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('a137da8e-03e3-40d2-8bc4-fdba80b15b06', '9810ae8a-1601-44be-9cf4-5721f1bc75e7', 'Rookie Of The Year Brown', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Nike/Jordan 1 Low/Rookie Of The Year Brown', '2025-06-16 17:25:42.452');

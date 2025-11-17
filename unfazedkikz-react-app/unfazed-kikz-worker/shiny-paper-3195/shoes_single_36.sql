@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9e826091-e7c3-418f-9d69-0c456a8cc1f0', '36775c51-ba51-4e68-b91f-1e36a7202304', 'Cyan  Burst', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/New Balance/9060/Cyan  Burst.jpg', '2024-11-20 16:49:08.194');

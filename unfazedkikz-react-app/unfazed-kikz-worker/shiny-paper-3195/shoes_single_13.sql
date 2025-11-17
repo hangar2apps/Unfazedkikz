@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9adacfdf-5428-4791-ad30-436ab704f082', '9810ae8a-1601-44be-9cf4-5721f1bc75e7', 'LV Black Suade White', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Jordan 1 Low/LV Black Suade White.jpg', '2024-12-08 00:25:59.92');

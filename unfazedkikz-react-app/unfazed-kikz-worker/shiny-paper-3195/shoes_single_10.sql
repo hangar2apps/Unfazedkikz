@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9a5b80fa-3cb1-452d-8195-e824604cd3f7', '755c7599-355d-4fa7-9bcf-842d6663631e', 'Semi Frozen Yellow', 'https://a48bacdb-6bf7-405c-8edc-82c8a4cfa0e2.netlify.app/.netlify/blobs/read/Yezzy/350 V2/Semi Frozen Yellow', '2024-12-28 19:21:05.821');

@@ -1,0 +1,1 @@
+INSERT INTO shoes (id, line_id, model, image_url, created_at) VALUES ('9b267999-a136-4553-a604-3902534d2c60', 'c4086ec2-ae3b-4cf6-a7a3-dc4a97dca1e4', 'Off White Desert Ore', 'https://raw.githubusercontent.com/hangar2apps/Unfazedkikz/main/shoes/Nike/Air Max 90/Off White Desert Ore.jpg', '2025-01-03 17:36:24.035');
